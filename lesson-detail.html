@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Lesson Learned Detail - ENEC Knowledge Management System"
+    />
+    <title>Lesson Detail | ENEC Knowledge Management System</title>
+    <link rel="icon" href="assets/favicon.jpg" />
+    <link rel="stylesheet" href="css/main.css" />
+    <style>
+      .page-lesson-detail {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        color: #1e293b;
+        line-height: 1.7;
+      }
+      .document-layout {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+        margin-top: 1.5rem;
+      }
+      .document-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+      }
+      .badge {
+        display: inline-block;
+        padding: 0.2rem 0.7rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+      .badge-positive {
+        background: #dcfce7;
+        color: #166534;
+      }
+      .badge-challenge {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+      .badge-approved {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+      .badge-review {
+        background: #fef9c3;
+        color: #854d0e;
+      }
+      .badge-type {
+        background: #eef2f6;
+        color: #1a3a5c;
+      }
+      .document-meta-info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem 1.5rem;
+        font-size: 0.95rem;
+        color: #475569;
+        background: #f8fafc;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+      }
+      .info-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+      }
+      .info-table th {
+        text-align: left;
+        font-weight: 600;
+        color: #0b2b4a;
+        padding: 0.5rem 0.75rem 0.5rem 0;
+        width: 35%;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      .info-table td {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      .sidebar-card {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 1.25rem;
+        margin-bottom: 1rem;
+      }
+      .btn-block {
+        display: block;
+        width: 100%;
+        margin-bottom: 0.5rem;
+        text-align: center;
+      }
+      @media (max-width: 900px) {
+        .document-layout {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ============================================================
+         FOOTER — cleanup + FOLLOW US SOCIAL BUTTONS
+         Six round pill buttons, always in ONE row, brand-colored hover
+         ============================================================ */
+      .site-footer ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .site-footer ul li {
+        padding-left: 0;
+        margin-bottom: 0.25rem;
+      }
+      .site-footer ul li::before {
+        display: none !important;
+      }
+      .site-footer p {
+        margin-bottom: 0.35rem;
+        max-width: 100%;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        color: inherit;
+      }
+      .site-footer,
+      .site-footer h3,
+      .site-footer h4,
+      .site-footer a,
+      .site-footer li {
+        -webkit-font-smoothing: subpixel-antialiased;
+        -moz-osx-font-smoothing: auto;
+      }
+      .site-footer .footer-col h3,
+      .site-footer .footer-col h4 {
+        color: #ffffff;
+        font-size: 1rem;
+        font-weight: 700;
+        margin: 0 0 12px 0;
+        line-height: 1.3;
+        letter-spacing: 0;
+      }
+      .site-footer .footer-col h4 {
+        margin-bottom: 0.6rem;
+      }
+
+      .site-footer .footer-social {
+        margin-top: 1.25rem;
+      }
+
+      .site-footer .footer-social h4 {
+        color: #ffffff;
+        font-size: 1rem;
+        font-weight: 700;
+        margin: 0 0 10px 0;
+      }
+
+      .site-footer .social-links {
+        display: flex;
+        flex-wrap: nowrap; /* keep all six on a single row */
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .site-footer .social-links li {
+        flex: 0 0 auto;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .site-footer .social-links li::before,
+      .site-footer .social-links li::marker {
+        content: none !important;
+        display: none !important;
+      }
+
+      .site-footer .social-links a {
+        --brand: #64748b;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px; /* round pill */
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        color: #e2e8f0;
+        text-decoration: none;
+        line-height: 1;
+        transition:
+          background-color 0.25s ease,
+          border-color 0.25s ease,
+          color 0.25s ease,
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+
+      .site-footer .social-links a svg {
+        width: 18px;
+        height: 18px;
+        display: block;
+        fill: currentColor;
+      }
+
+      .site-footer .social-links a:hover,
+      .site-footer .social-links a:focus-visible {
+        background: var(--brand);
+        border-color: var(--brand);
+        color: #ffffff;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
+        outline: none;
+      }
+
+      .site-footer .social-links a:focus-visible {
+        outline: 3px solid rgba(255, 255, 255, 0.5);
+        outline-offset: 2px;
+      }
+
+      /* Brand colors on hover */
+      .site-footer .social-links .social-facebook {
+        --brand: #1877f2;
+      }
+      .site-footer .social-links .social-x {
+        --brand: #000000;
+      }
+      .site-footer .social-links .social-linkedin {
+        --brand: #0a66c2;
+      }
+      .site-footer .social-links .social-whatsapp {
+        --brand: #25d366;
+      }
+      .site-footer .social-links .social-telegram {
+        --brand: #229ed9;
+      }
+      .site-footer .social-links .social-tiktok {
+        --brand: #010101;
+      }
+
+      .site-footer .social-links .social-tiktok:hover,
+      .site-footer .social-links .social-tiktok:focus-visible {
+        box-shadow:
+          0 0 0 2px rgba(37, 244, 238, 0.55),
+          0 8px 18px rgba(0, 0, 0, 0.28);
+      }
+
+      @media (max-width: 480px) {
+        .site-footer .social-links {
+          gap: 6px;
+        }
+        .site-footer .social-links a {
+          width: 36px;
+          height: 36px;
+        }
+        .site-footer .social-links a svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+
+      @media (max-width: 340px) {
+        .site-footer .social-links a {
+          width: 32px;
+          height: 32px;
+        }
+        .site-footer .social-links a svg {
+          width: 14px;
+          height: 14px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .site-footer .social-links a {
+          transition: none;
+        }
+        .site-footer .social-links a:hover,
+        .site-footer .social-links a:focus-visible {
+          transform: none;
+        }
+      }
+      /* ===================== END FOOTER SOCIAL ===================== */
+    </style>
+  </head>
+
+  <body class="page-lesson-detail">
+    <header class="site-header">
+      <div class="container header-container">
+        <div class="logo">
+          <a href="home.html">
+            <img
+              src="assets/enec-logo.webp"
+              alt="Ethiopian Nuclear Energy Commission"
+            />
+          </a>
+        </div>
+        <nav class="main-nav">
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li>
+              <a href="Knowledge Repository.html">Knowledge Repository</a>
+            </li>
+            <li><a href="lessons.html" class="active">Lessons Learned</a></li>
+            <li><a href="learning.html">Learning &amp; Competence</a></li>
+            <li><a href="communities.html">Communities</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="about.html">About KMS</a></li>
+          </ul>
+        </nav>
+        <div class="header-utility">
+          <div class="user-menu" id="user-menu"></div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="container">
+        <nav class="breadcrumb">
+          <ol>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="lessons.html">Lessons Learned</a></li>
+            <li aria-current="page" id="breadcrumb-title">Lesson Detail</li>
+          </ol>
+        </nav>
+
+        <div class="document-layout">
+          <div class="document-main">
+            <div id="lesson-badges" class="document-badges"></div>
+            <h1 id="lesson-title">Loading lesson...</h1>
+            <div id="lesson-meta" class="document-meta-info"></div>
+
+            <section>
+              <h2>Summary</h2>
+              <p id="lesson-summary">Loading...</p>
+            </section>
+
+            <section>
+              <h2>Key Information</h2>
+              <table class="info-table">
+                <tbody id="lesson-info-table"></tbody>
+              </table>
+            </section>
+          </div>
+
+          <aside>
+            <div class="sidebar-card">
+              <a href="lessons.html" class="btn btn-primary btn-block"
+                >← Back to Lessons</a
+              >
+              <button
+                type="button"
+                id="download-btn"
+                class="btn btn-outline btn-block"
+              >
+                Download File
+              </button>
+              <button
+                type="button"
+                id="edit-btn"
+                class="btn btn-outline btn-block"
+              >
+                Edit Lesson
+              </button>
+              <button
+                type="button"
+                id="delete-btn"
+                class="btn btn-outline btn-block"
+                style="color: #c62828; border-color: #c62828"
+              >
+                Delete Lesson
+              </button>
+            </div>
+            <div class="sidebar-card">
+              <h3>Submitted By</h3>
+              <p id="lesson-author">—</p>
+            </div>
+            <div class="sidebar-card">
+              <h3>Status</h3>
+              <p id="lesson-status">—</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h3>ENEC KMS</h3>
+            <p>
+              Supporting the safe and peaceful development of nuclear science
+              and technology in Ethiopia.
+            </p>
+          </div>
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+              <li>
+                <a href="Knowledge Repository.html">Knowledge Repository</a>
+              </li>
+              <li><a href="lessons.html">Lessons Learned</a></li>
+              <li><a href="learning.html">Learning &amp; Competence</a></li>
+              <li><a href="about.html">About the KMS</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Resources</h4>
+            <ul>
+              <li>
+                <a href="https://enec.gov.et" target="_blank" rel="noopener"
+                  >Main ENEC Website</a
+                >
+              </li>
+              <li>
+                <a href="https://www.iaea.org" target="_blank" rel="noopener"
+                  >IAEA</a
+                >
+              </li>
+              <li><a href="help.html">Help &amp; Support</a></li>
+              <li><a href="contact.html">Contact KM Team</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <p>
+              Ethiopian Nuclear Energy Commission<br />
+              Addis Ababa, Ethiopia<br />
+              <a href="mailto:enecinfo@enec.gov.et">enecinfo@enec.gov.et</a>
+            </p>
+
+            <div class="footer-social">
+              <h4>Follow Us</h4>
+              <ul class="social-links">
+                <!-- Facebook -->
+                <li>
+                  <a
+                    href="https://www.facebook.com/EthiopianNuclearEnergy/"
+                    class="social-facebook"
+                    aria-label="Facebook"
+                    title="Facebook"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+
+                <!-- X (Twitter) — direct link, no facebook redirect wrapper -->
+                <li>
+                  <a
+                    href="https://x.com/EthiopianNuclearEnergy"
+                    class="social-x"
+                    aria-label="X (Twitter)"
+                    title="X (Twitter)"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M18.244 2H21.5l-7.19 8.21L22.5 22h-6.586l-5.16-6.72L4.808 22H1.55l7.694-8.786L1.5 2h6.754l4.658 6.148L18.244 2zm-1.157 18h1.83L7.03 4H5.06l12.027 16z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+
+                <!-- LinkedIn -->
+                <li>
+                  <a
+                    href="https://et.linkedin.com/in/ethiopian-nuclear-energy-commission-11b47b3ba"
+                    class="social-linkedin"
+                    aria-label="LinkedIn"
+                    title="LinkedIn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.36V9h3.4v1.56h.05a3.73 3.73 0 0 1 3.36-1.85c3.59 0 4.25 2.36 4.25 5.43v6.31zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+
+                <!-- WhatsApp — replace number with your real one -->
+                <li>
+                  <a
+                    href="https://wa.me/251911234567"
+                    class="social-whatsapp"
+                    aria-label="WhatsApp"
+                    title="WhatsApp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M17.47 14.38c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.19 5.07 4.47.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35zM12 22a9.94 9.94 0 0 1-5.07-1.39L2 22l1.44-4.83A9.94 9.94 0 0 1 2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm0-18.4c-4.63 0-8.4 3.77-8.4 8.4 0 1.61.45 3.11 1.24 4.39l-.81 2.71 2.82-.74a8.37 8.37 0 0 0 5.15 1.76c4.63 0 8.4-3.77 8.4-8.4s-3.77-8.4-8.4-8.4z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+
+                <!-- Telegram -->
+                <li>
+                  <a
+                    href="https://t.me/ENEC_Ethiopia"
+                    class="social-telegram"
+                    aria-label="Telegram"
+                    title="Telegram"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+
+                <!-- TikTok -->
+                <li>
+                  <a
+                    href="https://www.tiktok.com/@enec.et?is_from_webapp=1&sender_device=pc"
+                    class="social-tiktok"
+                    aria-label="TikTok"
+                    title="TikTok"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>
+            &copy; 2026 Ethiopian Nuclear Energy Commission. All rights
+            reserved.
+          </p>
+          <div class="footer-links">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Use</a>
+            <a href="accessibility.html">Accessibility</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/i18n.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+        const API_BASE = "http://localhost:3000";
+        const params = new URLSearchParams(window.location.search);
+        const lessonId = params.get("id");
+
+        if (!lessonId) {
+          alert("Lesson ID not found.");
+          window.location.href = "lessons.html";
+          return;
+        }
+
+        const titleEl = document.getElementById("lesson-title");
+        const summaryEl = document.getElementById("lesson-summary");
+        const metaEl = document.getElementById("lesson-meta");
+        const tableEl = document.getElementById("lesson-info-table");
+        const badgesEl = document.getElementById("lesson-badges");
+        const authorEl = document.getElementById("lesson-author");
+        const statusEl = document.getElementById("lesson-status");
+        const breadcrumbTitle = document.getElementById("breadcrumb-title");
+        const editBtn = document.getElementById("edit-btn");
+        const deleteBtn = document.getElementById("delete-btn");
+        const downloadBtn = document.getElementById("download-btn");
+
+        function formatDate(dateValue) {
+          if (!dateValue) return "—";
+          const d = new Date(dateValue);
+          if (isNaN(d.getTime())) return dateValue;
+          return d.toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          });
+        }
+
+        // Build a safe absolute URL for the stored file path
+        function buildFileUrl(filePath) {
+          const raw = String(filePath || "").trim();
+          if (!raw) return "";
+          if (/^https?:\/\//i.test(raw)) return raw;
+          let p = raw.replace(/\\/g, "/");
+          if (p.charAt(0) === "/") return API_BASE + p;
+          if (p.indexOf("/") !== -1) return API_BASE + "/" + p;
+          return API_BASE + "/uploads/" + p;
+        }
+
+        try {
+          const res = await fetch(API_BASE + "/api/lessons/" + lessonId);
+          if (!res.ok) throw new Error("Lesson not found");
+          const lesson = await res.json();
+
+          if (titleEl) titleEl.textContent = lesson.Title || "Untitled Lesson";
+          document.title = (lesson.Title || "Lesson") + " | ENEC KMS";
+          if (breadcrumbTitle)
+            breadcrumbTitle.textContent = lesson.Title || "Lesson Detail";
+
+          if (badgesEl) {
+            const typeClass = (lesson.LessonType || "")
+              .toLowerCase()
+              .includes("challenge")
+              ? "badge-challenge"
+              : "badge-positive";
+            const statusClass = (lesson.Status || "")
+              .toLowerCase()
+              .includes("review")
+              ? "badge-review"
+              : "badge-approved";
+            badgesEl.innerHTML = `
+            <span class="badge ${typeClass}">${lesson.LessonType || "—"}</span>
+            <span class="badge ${statusClass}">${lesson.Status || "—"}</span>
+            <span class="badge badge-type">${lesson.CategoryName || "—"}</span>
+          `;
+          }
+
+          if (metaEl) {
+            metaEl.innerHTML = `
+            <span><strong>Submitted:</strong> ${formatDate(lesson.SubmittedAt)}</span>
+            <span><strong>Category:</strong> ${lesson.CategoryName || "—"}</span>
+            <span><strong>Author:</strong> ${lesson.AuthorName || "—"}</span>
+          `;
+          }
+
+          if (summaryEl)
+            summaryEl.textContent = lesson.Summary || "No summary available.";
+
+          if (tableEl) {
+            tableEl.innerHTML = `
+            <tr><th>Type</th><td>${lesson.LessonType || "—"}</td></tr>
+            <tr><th>Status</th><td>${lesson.Status || "—"}</td></tr>
+            <tr><th>Category</th><td>${lesson.CategoryName || "—"}</td></tr>
+            <tr><th>Submitted Date</th><td>${formatDate(lesson.SubmittedAt)}</td></tr>
+            <tr><th>Author / Team</th><td>${lesson.AuthorName || "—"}</td></tr>
+          `;
+          }
+
+          if (authorEl) authorEl.textContent = lesson.AuthorName || "—";
+          if (statusEl) statusEl.textContent = lesson.Status || "—";
+
+          // ----- DOWNLOAD (uses the lesson fetched above) -----
+          if (downloadBtn) {
+            downloadBtn.onclick = function () {
+              const filePath =
+                lesson.FilePath ||
+                lesson.filePath ||
+                lesson.FileURL ||
+                lesson.FileUrl ||
+                "";
+              const url = buildFileUrl(filePath);
+              if (url) {
+                window.open(url, "_blank");
+              } else {
+                alert("No file available for download yet.");
+              }
+            };
+          }
+
+          // ----- EDIT -----
+          if (editBtn) {
+            editBtn.onclick = function () {
+              window.location.href = "submit-lesson.html?edit=" + lessonId;
+            };
+          }
+
+          // ----- DELETE -----
+          if (deleteBtn) {
+            deleteBtn.onclick = async function () {
+              if (!confirm("Delete this lesson?\n\nThis cannot be undone."))
+                return;
+              try {
+                const del = await fetch(API_BASE + "/api/lessons/" + lessonId, {
+                  method: "DELETE",
+                });
+                const data = await del.json();
+                if (del.ok && data.success) {
+                  alert("Lesson deleted successfully.");
+                  window.location.href = "lessons.html";
+                } else {
+                  alert(data.message || "Delete failed.");
+                }
+              } catch (e) {
+                alert("Cannot connect to API.");
+              }
+            };
+          }
+        } catch (err) {
+          console.error(err);
+          if (titleEl) titleEl.textContent = "Lesson not found";
+          if (summaryEl)
+            summaryEl.textContent =
+              "Cannot load this lesson. Make sure the API is running.";
+        }
+      });
+    </script>
+  </body>
+</html>

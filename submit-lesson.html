@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Submit Lesson Learned | ENEC KMS</title>
+    <link rel="icon" href="assets/favicon.jpg" />
+    <link rel="stylesheet" href="css/main.css" />
+    <style>
+      .page-submit-lesson .form-wrapper {
+        max-width: 820px;
+        margin: 0 auto 2rem;
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 1.75rem;
+      }
+      .page-submit-lesson .form-group {
+        margin-bottom: 1.25rem;
+      }
+      .page-submit-lesson label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.4rem;
+        color: #0b2b4a;
+      }
+      .page-submit-lesson label.required::after {
+        content: " *";
+        color: #c62828;
+      }
+      .page-submit-lesson input[type="text"],
+      .page-submit-lesson input[type="file"],
+      .page-submit-lesson select,
+      .page-submit-lesson textarea {
+        width: 100%;
+        padding: 0.65rem 0.75rem;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-family: inherit;
+      }
+      .page-submit-lesson textarea {
+        min-height: 140px;
+        resize: vertical;
+      }
+      .page-submit-lesson .type-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .page-submit-lesson .type-options label {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-weight: 500;
+        margin: 0;
+        cursor: pointer;
+      }
+      .page-submit-lesson .form-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+      }
+    </style>
+  </head>
+
+  <body class="page-submit-lesson">
+    <!-- HEADER -->
+    <header class="site-header">
+      <div class="container header-container">
+        <div class="logo">
+          <a href="home.html">
+            <img src="assets/enec-logo.webp" alt="ENEC" />
+          </a>
+        </div>
+
+        <nav class="main-nav">
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li>
+              <a href="Knowledge Repository.html">Knowledge Repository</a>
+            </li>
+            <li><a href="lessons.html" class="active">Lessons Learned</a></li>
+            <li><a href="learning.html">Learning &amp; Competence</a></li>
+            <li><a href="communities.html">Communities</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="about.html">About KMS</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-utility">
+          <div class="user-menu" id="user-menu"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="main-content">
+      <div class="container">
+        <nav class="breadcrumb">
+          <ol>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="lessons.html">Lessons Learned</a></li>
+            <li aria-current="page">Submit Lesson</li>
+          </ol>
+        </nav>
+
+        <div class="page-header">
+          <h1 id="form-title">Submit Lesson Learned</h1>
+          <p class="page-description">
+            Share a positive practice or challenge so the organization can learn
+            and improve.
+          </p>
+        </div>
+
+        <div class="form-wrapper">
+          <form id="lesson-form">
+            <div class="form-group">
+              <label for="title" class="required">Lesson Title</label>
+              <input
+                type="text"
+                id="title"
+                required
+                placeholder="Enter a clear lesson title"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="required">Lesson Type</label>
+              <div class="type-options">
+                <label>
+                  <input
+                    type="radio"
+                    name="lesson_type"
+                    value="positive"
+                    required
+                  />
+                  Positive Practice
+                </label>
+                <label>
+                  <input type="radio" name="lesson_type" value="challenge" />
+                  Challenge
+                </label>
+                <label>
+                  <input type="radio" name="lesson_type" value="event" />
+                  Event
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="category" class="required">Category</label>
+              <select id="category" required>
+                <option value="">-- Select Category --</option>
+                <option value="Nuclear Power Programme">
+                  Nuclear Power Programme
+                </option>
+                <option value="Policies & Regulatory Framework">
+                  Policies &amp; Regulatory Framework
+                </option>
+                <option value="Safety, Security & Safeguards">
+                  Safety, Security &amp; Safeguards
+                </option>
+                <option value="Non-Power Applications">
+                  Non-Power Applications
+                </option>
+                <option value="Human Resource Development">
+                  Human Resource Development
+                </option>
+                <option value="Technical Reports & Studies">
+                  Technical Reports &amp; Studies
+                </option>
+                <option value="Procedures & Work Instructions">
+                  Procedures &amp; Work Instructions
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="summary" class="required">Summary</label>
+              <textarea
+                id="summary"
+                required
+                placeholder="Describe the lesson, what happened, and the recommendation..."
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="author">Author / Team</label>
+              <input
+                type="text"
+                id="author"
+                placeholder="Example: Training Unit"
+              />
+            </div>
+
+            <!-- FILE UPLOAD -->
+            <div class="form-group">
+              <label for="file">Upload Supporting File (optional)</label>
+              <input
+                type="file"
+                id="file"
+                name="file"
+                accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx"
+              />
+              <small
+                style="color: #64748b; display: block; margin-top: 0.35rem"
+              >
+                Allowed: PDF, Word, PowerPoint, Excel (max 10MB)
+              </small>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="submit-btn">
+                Submit Lesson
+              </button>
+              <a href="lessons.html" class="btn btn-outline">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-bottom">
+          <p>
+            &copy; 2026 Ethiopian Nuclear Energy Commission. All rights
+            reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const currentUser = localStorage.getItem("enec_user");
+        if (!currentUser) {
+          alert("Please login first.");
+          window.location.href = "login .html";
+          return;
+        }
+
+        const user = JSON.parse(currentUser);
+        const form = document.getElementById("lesson-form");
+        const urlParams = new URLSearchParams(window.location.search);
+        const editId = urlParams.get("edit");
+        let isEditMode = false;
+
+        const categoryMap = {
+          "Nuclear Power Programme": 1,
+          "Policies & Regulatory Framework": 2,
+          "Safety, Security & Safeguards": 3,
+          "Non-Power Applications": 4,
+          "Human Resource Development": 5,
+          "Technical Reports & Studies": 6,
+          "Procedures & Work Instructions": 7,
+        };
+
+        // ===== LOAD FOR EDIT =====
+        async function loadForEdit() {
+          if (!editId) return;
+
+          try {
+            const res = await fetch(
+              "http://localhost:3000/api/lessons/" + editId,
+            );
+            if (!res.ok) throw new Error("Lesson not found");
+
+            const lesson = await res.json();
+            isEditMode = true;
+
+            document.getElementById("form-title").textContent =
+              "Edit Lesson Learned";
+            document.getElementById("submit-btn").textContent = "Update Lesson";
+
+            document.getElementById("title").value = lesson.Title || "";
+            document.getElementById("summary").value = lesson.Summary || "";
+            document.getElementById("category").value =
+              lesson.CategoryName || "";
+            document.getElementById("author").value = lesson.AuthorName || "";
+
+            const typeValue = (lesson.LessonType || "").toLowerCase();
+            document
+              .querySelectorAll('input[name="lesson_type"]')
+              .forEach(function (input) {
+                if (
+                  typeValue.includes(input.value.toLowerCase()) ||
+                  input.value.toLowerCase() === typeValue
+                ) {
+                  input.checked = true;
+                }
+              });
+          } catch (err) {
+            console.error(err);
+            alert("Cannot load lesson for edit.");
+            window.location.href = "lessons.html";
+          }
+        }
+
+        // ===== SUBMIT =====
+        form.addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const title = document.getElementById("title").value.trim();
+          const summary = document.getElementById("summary").value.trim();
+          const categoryName = document.getElementById("category").value;
+          const typeInput = document.querySelector(
+            'input[name="lesson_type"]:checked',
+          );
+          const fileInput = document.getElementById("file");
+
+          if (!title || !summary || !categoryName || !typeInput) {
+            alert("Please fill all required fields.");
+            return;
+          }
+
+          let mappedType = typeInput.value;
+          if (typeInput.value === "positive") mappedType = "Positive Practice";
+          if (typeInput.value === "challenge") mappedType = "Challenge";
+          if (typeInput.value === "event") mappedType = "Event";
+
+          const formData = new FormData();
+          formData.append("title", title);
+          formData.append("summary", summary);
+          formData.append("lessonType", mappedType);
+          formData.append("categoryId", categoryMap[categoryName] || "");
+          formData.append("status", "Under Review");
+          formData.append("authorId", user.id || "");
+          formData.append("submittedAt", new Date().toISOString().slice(0, 10));
+
+          if (fileInput && fileInput.files[0]) {
+            formData.append("file", fileInput.files[0]);
+          }
+
+          const submitBtn = document.getElementById("submit-btn");
+          submitBtn.disabled = true;
+          submitBtn.textContent = isEditMode ? "Updating..." : "Submitting...";
+
+          try {
+            let res;
+
+            if (isEditMode) {
+              res = await fetch("http://localhost:3000/api/lessons/" + editId, {
+                method: "PUT",
+                body: formData,
+              });
+            } else {
+              res = await fetch("http://localhost:3000/api/lessons", {
+                method: "POST",
+                body: formData,
+              });
+            }
+
+            const result = await res.json();
+
+            if (res.ok && result.success) {
+              alert(
+                isEditMode
+                  ? "Lesson updated successfully!"
+                  : "Lesson submitted successfully!",
+              );
+              window.location.href = "lessons.html";
+            } else {
+              alert(result.message || "Save failed.");
+            }
+          } catch (err) {
+            console.error(err);
+            alert("Cannot connect to API. Is the server running on port 3000?");
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = isEditMode
+              ? "Update Lesson"
+              : "Submit Lesson";
+          }
+        });
+
+        loadForEdit();
+      });
+    </script>
+    <script src="js/main.js"></script>
+    <script src="js/i18n.js"></script>
+  </body>
+</html>

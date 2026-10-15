@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="News & Announcements - ENEC Knowledge Management System"
+    />
+    <title>News &amp; Announcements | ENEC Knowledge Management System</title>
+    <link rel="icon" href="assets/favicon.jpg" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <style>
+      .page-announcements {
+        font-family:
+          "Segoe UI",
+          Roboto,
+          system-ui,
+          -apple-system,
+          sans-serif;
+        color: #1e293b;
+        line-height: 1.7;
+      }
+
+      .page-announcements h1 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #0b2b4a;
+        line-height: 1.2;
+        margin: 0 0 0.5rem 0;
+      }
+
+      .page-announcements .page-description {
+        font-size: 1.05rem;
+        color: #475569;
+        max-width: 70ch;
+        margin-bottom: 1.5rem;
+      }
+
+      /* Filter bar */
+      .filter-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.75rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      .filter-label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #475569;
+        margin-right: 0.25rem;
+      }
+      .filter-chip {
+        font-size: 0.85rem;
+        font-weight: 600;
+        padding: 0.3rem 0.85rem;
+        border-radius: 20px;
+        border: 1px solid #cbd5e1;
+        background: #ffffff;
+        color: #334155;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .filter-chip:hover {
+        border-color: #1a6b8a;
+        color: #1a6b8a;
+      }
+      .filter-chip.active {
+        background: #1a6b8a;
+        border-color: #1a6b8a;
+        color: #ffffff;
+      }
+
+      /* Cards */
+      .announcement-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .announcement-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 1.35rem 1.5rem 1.15rem;
+        position: relative;
+        overflow: hidden;
+        transition:
+          box-shadow 0.2s,
+          transform 0.2s,
+          border-color 0.2s;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+
+      .announcement-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #1a6b8a, #4a8da8);
+      }
+
+      .announcement-card:hover {
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07);
+        transform: translateY(-2px);
+        border-color: #cbd5e1;
+      }
+
+      .announcement-card:focus-visible {
+        outline: 3px solid #1a6b8a;
+        outline-offset: 3px;
+      }
+
+      .announcement-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem 0.75rem;
+        align-items: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .announcement-date {
+        display: inline-block;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: #1a6b8a;
+        background: #eef6fa;
+        padding: 0.15rem 0.6rem;
+        border-radius: 12px;
+      }
+
+      .announcement-tag {
+        display: inline-block;
+        padding: 0.15rem 0.6rem;
+        border-radius: 12px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        background: #eef2f6;
+        color: #1a3a5c;
+      }
+
+      .announcement-card h2 {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #0b2b4a;
+        margin: 0 0 0.4rem 0;
+        line-height: 1.4;
+      }
+
+      .announcement-card p {
+        font-size: 0.95rem;
+        line-height: 1.65;
+        color: #475569;
+        margin: 0;
+      }
+
+      /* States */
+      .loading-state,
+      .empty-state,
+      .error-state {
+        text-align: center;
+        padding: 3rem 1.5rem;
+        color: #64748b;
+      }
+      .empty-state h2,
+      .error-state h2 {
+        color: #0b2b4a;
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+      }
+      .error-state {
+        color: #b91c1c;
+      }
+      .error-state h2 {
+        color: #b91c1c;
+      }
+      .spinner {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        border: 3px solid #e2e8f0;
+        border-top-color: #1a6b8a;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin-bottom: 1rem;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Footer list cleanup */
+      .site-header ul,
+      .site-footer ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .site-header ul li,
+      .site-footer ul li {
+        padding-left: 0;
+        margin-bottom: 0;
+      }
+      .site-header ul li::before,
+      .site-footer ul li::before {
+        display: none !important;
+      }
+      .site-footer p {
+        margin-bottom: 0.35rem;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        color: inherit;
+      }
+      .site-footer .footer-col h3,
+      .site-footer .footer-col h4 {
+        color: #ffffff;
+        font-size: 1rem;
+        font-weight: 700;
+        margin: 0 0 12px 0;
+      }
+      .site-footer .footer-col h4 {
+        margin-bottom: 0.6rem;
+      }
+
+      /* Footer social (same as rest of site) */
+      .site-footer .footer-social {
+        margin-top: 1.25rem;
+      }
+      .site-footer .footer-social h4 {
+        color: #ffffff;
+        font-size: 1rem;
+        font-weight: 700;
+        margin: 0 0 10px 0;
+      }
+      .site-footer .social-links {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .site-footer .social-links li {
+        flex: 0 0 auto;
+        margin: 0;
+        padding: 0;
+      }
+      .site-footer .social-links li::before,
+      .site-footer .social-links li::marker {
+        content: none !important;
+        display: none !important;
+      }
+      .site-footer .social-links a {
+        --brand: #64748b;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        color: #e2e8f0;
+        text-decoration: none;
+        line-height: 1;
+        transition:
+          background-color 0.25s ease,
+          border-color 0.25s ease,
+          color 0.25s ease,
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+      .site-footer .social-links a svg {
+        width: 18px;
+        height: 18px;
+        display: block;
+        fill: currentColor;
+      }
+      .site-footer .social-links a:hover,
+      .site-footer .social-links a:focus-visible {
+        background: var(--brand);
+        border-color: var(--brand);
+        color: #ffffff;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
+        outline: none;
+      }
+      .site-footer .social-links .social-facebook {
+        --brand: #1877f2;
+      }
+      .site-footer .social-links .social-x {
+        --brand: #000000;
+      }
+      .site-footer .social-links .social-linkedin {
+        --brand: #0a66c2;
+      }
+      .site-footer .social-links .social-whatsapp {
+        --brand: #25d366;
+      }
+      .site-footer .social-links .social-telegram {
+        --brand: #229ed9;
+      }
+      .site-footer .social-links .social-tiktok {
+        --brand: #010101;
+      }
+
+      @media (max-width: 480px) {
+        .site-footer .social-links {
+          gap: 6px;
+        }
+        .site-footer .social-links a {
+          width: 36px;
+          height: 36px;
+        }
+        .site-footer .social-links a svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .spinner {
+          animation: none;
+        }
+        .announcement-card:hover {
+          transform: none;
+        }
+        .site-footer .social-links a:hover,
+        .site-footer .social-links a:focus-visible {
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="page-announcements">
+    <header class="site-header">
+      <div class="container header-container">
+        <div class="logo">
+          <a href="home.html">
+            <img
+              src="assets/enec-logo.webp"
+              alt="Ethiopian Nuclear Energy Commission"
+            />
+            <span class="logo-text"></span>
+          </a>
+        </div>
+        <nav class="main-nav" aria-label="Main navigation">
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li>
+              <a href="Knowledge Repository.html">Knowledge Repository</a>
+            </li>
+            <li><a href="lessons.html">Lessons Learned</a></li>
+            <li><a href="learning.html">Learning &amp; Competence</a></li>
+            <li><a href="communities.html">Communities</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="about.html">About KMS</a></li>
+          </ul>
+        </nav>
+        <div class="header-utility">
+          <div class="search-box">
+            <form action="search.html" method="get">
+              <input
+                type="search"
+                name="q"
+                placeholder="Search knowledge..."
+                aria-label="Search"
+              />
+              <button type="submit">Search</button>
+            </form>
+          </div>
+          <div class="language-switcher">
+            <a href="?lang=en" class="lang-btn active" data-lang="en">EN</a>
+            <a href="?lang=am" class="lang-btn" data-lang="am">አማ</a>
+          </div>
+          <div class="user-menu" id="user-menu"></div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="home.html">Home</a></li>
+            <li aria-current="page">News &amp; Announcements</li>
+          </ol>
+        </nav>
+
+        <div class="page-header">
+          <h1>News &amp; Announcements</h1>
+          <p class="page-description">
+            Stay up to date with ENEC knowledge, training, and system updates.
+            Use the filters below to narrow by category.
+          </p>
+        </div>
+
+        <!-- Category filter chips -->
+        <div class="filter-bar">
+          <span class="filter-label">Filter by category:</span>
+          <button class="filter-chip active" data-cat="all">All</button>
+          <button class="filter-chip" data-cat="Fellowship">Fellowship</button>
+          <button class="filter-chip" data-cat="Training">Training</button>
+          <button class="filter-chip" data-cat="System">System</button>
+          <button class="filter-chip" data-cat="Event">Event</button>
+          <button class="filter-chip" data-cat="Opportunity">
+            Opportunity
+          </button>
+          <button class="filter-chip" data-cat="Policy">Policy</button>
+        </div>
+
+        <div id="announcements-root">
+          <div class="loading-state">
+            <span class="spinner"></span>
+            <p>Loading announcements…</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h3>ENEC KMS</h3>
+            <p>
+              Supporting the safe and peaceful development of nuclear science
+              and technology in Ethiopia.
+            </p>
+          </div>
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+              <li>
+                <a href="Knowledge Repository.html">Knowledge Repository</a>
+              </li>
+              <li><a href="lessons.html">Lessons Learned</a></li>
+              <li><a href="learning.html">Learning &amp; Competence</a></li>
+              <li><a href="about.html">About the KMS</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Resources</h4>
+            <ul>
+              <li>
+                <a href="https://enec.gov.et" target="_blank" rel="noopener"
+                  >Main ENEC Website</a
+                >
+              </li>
+              <li>
+                <a href="https://www.iaea.org" target="_blank" rel="noopener"
+                  >IAEA</a
+                >
+              </li>
+              <li><a href="help.html">Help &amp; Support</a></li>
+              <li><a href="contact.html">Contact KM Team</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <p>
+              Ethiopian Nuclear Energy Commission<br />
+              Addis Ababa, Ethiopia<br />
+              <a href="mailto:enecinfo@enec.gov.et">enecinfo@enec.gov.et</a>
+            </p>
+            <div class="footer-social">
+              <h4>Follow Us</h4>
+              <ul class="social-links">
+                <li>
+                  <a
+                    href="https://www.facebook.com/EthiopianNuclearEnergy/"
+                    class="social-facebook"
+                    aria-label="Facebook"
+                    title="Facebook"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://x.com/EthiopianNuclearEnergy"
+                    class="social-x"
+                    aria-label="X (Twitter)"
+                    title="X (Twitter)"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M18.244 2H21.5l-7.19 8.21L22.5 22h-6.586l-5.16-6.72L4.808 22H1.55l7.694-8.786L1.5 2h6.754l4.658 6.148L18.244 2zm-1.157 18h1.83L7.03 4H5.06l12.027 16z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://et.linkedin.com/in/ethiopian-nuclear-energy-commission-11b47b3ba"
+                    class="social-linkedin"
+                    aria-label="LinkedIn"
+                    title="LinkedIn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.36V9h3.4v1.56h.05a3.73 3.73 0 0 1 3.36-1.85c3.59 0 4.25 2.36 4.25 5.43v6.31zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://wa.me/251911234567"
+                    class="social-whatsapp"
+                    aria-label="WhatsApp"
+                    title="WhatsApp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M17.47 14.38c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.19 5.07 4.47.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35zM12 22a9.94 9.94 0 0 1-5.07-1.39L2 22l1.44-4.83A9.94 9.94 0 0 1 2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm0-18.4c-4.63 0-8.4 3.77-8.4 8.4 0 1.61.45 3.11 1.24 4.39l-.81 2.71 2.82-.74a8.37 8.37 0 0 0 5.15 1.76c4.63 0 8.4-3.77 8.4-8.4s-3.77-8.4-8.4-8.4z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://t.me/ENEC_Ethiopia"
+                    class="social-telegram"
+                    aria-label="Telegram"
+                    title="Telegram"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.tiktok.com/@enec.et?is_from_webapp=1&sender_device=pc"
+                    class="social-tiktok"
+                    aria-label="TikTok"
+                    title="TikTok"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>
+            &copy; 2026 Ethiopian Nuclear Energy Commission. All rights
+            reserved.
+          </p>
+          <div class="footer-links">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Use</a>
+            <a href="accessibility.html">Accessibility</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/i18n.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+        const API_BASE = "http://localhost:3000";
+        const root = document.getElementById("announcements-root");
+
+        let allItems = [];
+        let activeCategory = "all";
+
+        function esc(s) {
+          return String(s == null ? "" : s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
+        }
+
+        function fmtDate(v) {
+          if (!v) return "";
+          const d = new Date(v);
+          if (isNaN(d.getTime())) return v;
+          return d.toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          });
+        }
+
+        function render() {
+          const items =
+            activeCategory === "all"
+              ? allItems
+              : allItems.filter((a) => (a.Category || "") === activeCategory);
+
+          if (!items.length) {
+            root.innerHTML = `
+              <div class="empty-state">
+                <h2>No announcements</h2>
+                <p>Nothing to show${
+                  activeCategory !== "all" ? " for " + esc(activeCategory) : ""
+                } at the moment.</p>
+              </div>`;
+            return;
+          }
+
+          root.innerHTML = `
+            <div class="announcement-grid">
+              ${items
+                .map(function (a) {
+                  const url = a.Url || a.Link || "#";
+                  const date = fmtDate(a.PublishedAt || a.Date);
+                  const tag = a.Category
+                    ? `<span class="announcement-tag">${esc(a.Category)}</span>`
+                    : "";
+                  const summary = a.Summary || a.Description || "";
+                  return `
+                    <a class="announcement-card" href="${esc(url)}">
+                      <div class="announcement-meta">
+                        ${date ? `<span class="announcement-date">${esc(date)}</span>` : ""}
+                        ${tag}
+                      </div>
+                      <h2>${esc(a.Title || "Untitled")}</h2>
+                      ${summary ? `<p>${esc(summary)}</p>` : ""}
+                    </a>`;
+                })
+                .join("")}
+            </div>`;
+
+          if (window.ENEC_i18n) window.ENEC_i18n.apply();
+        }
+
+        // Wire filter chips
+        document.querySelectorAll(".filter-chip").forEach(function (chip) {
+          chip.addEventListener("click", function () {
+            document.querySelectorAll(".filter-chip").forEach(function (c) {
+              c.classList.remove("active");
+            });
+            this.classList.add("active");
+            activeCategory = this.dataset.cat;
+            render();
+          });
+        });
+
+        try {
+          const res = await fetch(API_BASE + "/api/announcements");
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          allItems = await res.json();
+          if (!Array.isArray(allItems)) allItems = [];
+          render();
+        } catch (err) {
+          console.error("Announcements failed:", err);
+          root.innerHTML = `
+            <div class="error-state">
+              <h2>Cannot load announcements</h2>
+              <p>Please try again later, or contact the KM Team.</p>
+            </div>`;
+        }
+      });
+    </script>
+  </body>
+</html>

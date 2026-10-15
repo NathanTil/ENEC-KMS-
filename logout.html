@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Logout - ENEC Knowledge Management System</title>
+
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+
+  <body class="logout-page">
+    <!-- =====================================================
+         LOGOUT MAIN
+         ===================================================== -->
+
+    <main class="logout-main">
+      <div class="logout-card">
+        <!-- Success Icon -->
+        <div class="logout-icon" aria-hidden="true">✓</div>
+
+        <!-- Heading -->
+        <h1>Successfully Logged Out</h1>
+
+        <!-- Message -->
+        <p>
+          You have been securely logged out of the
+          <strong> ENEC Knowledge Management System </strong>.
+        </p>
+
+        <!-- Login Button -->
+        <a href="login .html" class="btn-logout-login"> Return to Login </a>
+
+        <!-- Home -->
+        <a href="home.html" class="logout-home-link"> ← Back to Home </a>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="logout-footer">
+      <p>© 2026 Ethiopian Nuclear Energy Commission (ENEC)</p>
+
+      <p>Knowledge Management System</p>
+    </footer>
+
+    <!-- =====================================================
+         LOGOUT SCRIPT
+         ===================================================== -->
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        /*
+         * Remove both types of login sessions.
+         */
+
+        localStorage.removeItem("enec_user");
+
+        sessionStorage.removeItem("enec_user");
+      });
+    </script>
+    <script src="js/main.js"></script>
+    <script src="js/i18n.js"></script>
+  </body>
+</html>

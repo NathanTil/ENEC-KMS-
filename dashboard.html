@@ -1,0 +1,1537 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="My Dashboard - ENEC Knowledge Management System"
+    />
+    <title>My Dashboard | ENEC Knowledge Management System</title>
+    <link rel="icon" href="assets/favicon.jpg" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <style>
+      /* ============================================================
+         DASHBOARD STYLES
+         ============================================================ */
+      .page-dashboard {
+        font-family:
+          "Segoe UI",
+          Roboto,
+          system-ui,
+          -apple-system,
+          sans-serif;
+        color: #1e293b;
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .page-dashboard p {
+        margin-bottom: 1.25rem;
+        font-size: 1.0625rem;
+        line-height: 1.8;
+        color: #1e293b;
+        max-width: 75ch;
+      }
+
+      .page-dashboard .page-description {
+        font-size: 1.125rem;
+        line-height: 1.7;
+        color: #334155;
+        max-width: 70ch;
+      }
+
+      .page-dashboard h1 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #0b2b4a;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        margin: 0 0 0.5rem 0;
+      }
+
+      .page-dashboard h2 {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #0b2b4a;
+        margin: 0;
+        letter-spacing: -0.01em;
+      }
+
+      .page-dashboard .card-header h2 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #0b2b4a;
+        margin: 0;
+      }
+
+      .page-dashboard h3 {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #1a3a5c;
+        margin: 0 0 0.3rem 0;
+        line-height: 1.4;
+      }
+
+      /* Header/footer list reset */
+      .site-header ul,
+      .site-footer ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .site-header ul li,
+      .site-footer ul li {
+        padding-left: 0;
+        margin-bottom: 0;
+      }
+      .site-header ul li::before,
+      .site-footer ul li::before {
+        display: none !important;
+      }
+
+      /* Footer fix */
+      .site-footer p {
+        margin-bottom: 0.35rem;
+        max-width: 100%;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        color: inherit;
+        -webkit-font-smoothing: subpixel-antialiased;
+        -moz-osx-font-smoothing: auto;
+      }
+      .site-footer,
+      .site-footer h3,
+      .site-footer h4,
+      .site-footer a,
+      .site-footer li {
+        -webkit-font-smoothing: subpixel-antialiased;
+        -moz-osx-font-smoothing: auto;
+      }
+      .page-dashboard .site-footer .footer-col h3,
+      .page-dashboard .site-footer .footer-col h4,
+      .site-footer .footer-col h3,
+      .site-footer .footer-col h4 {
+        color: #ffffff;
+        font-size: 1rem;
+        font-weight: 700;
+        margin: 0 0 12px 0;
+        line-height: 1.3;
+        letter-spacing: 0;
+      }
+      .site-footer .footer-col h4 {
+        margin-bottom: 0.6rem;
+      }
+
+      /* Social icons */
+      .footer-social {
+        margin-top: 0.85rem;
+        padding-top: 0.75rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .social-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .social-links a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+        color: #cfd8dc;
+        transition:
+          background 0.2s,
+          transform 0.2s,
+          color 0.2s;
+        text-decoration: none;
+      }
+      .social-links a:hover {
+        transform: translateY(-3px);
+        color: #ffffff;
+      }
+      .social-links svg {
+        width: 18px;
+        height: 18px;
+        display: block;
+        fill: currentColor;
+      }
+      .social-facebook:hover {
+        background: #1877f2;
+      }
+      .social-x:hover {
+        background: #000000;
+      }
+      .social-linkedin:hover {
+        background: #0a66c2;
+      }
+      .social-whatsapp:hover {
+        background: #25d366;
+      }
+      .social-telegram:hover {
+        background: #229ed9;
+      }
+      .social-tiktok:hover {
+        background: #000000;
+      }
+
+      /* Dashboard layout */
+      .dashboard-header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.75rem 1.5rem;
+      }
+
+      .header-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      .dashboard-main,
+      .dashboard-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .dashboard-card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: box-shadow 0.2s;
+      }
+
+      .dashboard-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 1.25rem;
+        border-bottom: 1px solid #eef2f6;
+        background: #fafbfc;
+      }
+
+      .card-header .view-all {
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: #1a6b8a;
+        text-decoration: none;
+      }
+      .card-header .view-all:hover {
+        text-decoration: underline;
+      }
+
+      .card-body {
+        padding: 0.75rem 1.25rem 1rem;
+      }
+
+      /* Buttons */
+      .btn {
+        display: inline-block;
+        padding: 0.4rem 1rem;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        text-decoration: none;
+        text-align: center;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+      .btn-primary {
+        background: #1a6b8a;
+        color: #ffffff;
+        border-color: #1a6b8a;
+      }
+      .btn-primary:hover {
+        background: #145a77;
+        border-color: #145a77;
+      }
+      .btn-outline {
+        background: transparent;
+        color: #1a6b8a;
+        border-color: #1a6b8a;
+      }
+      .btn-outline:hover {
+        background: #eef6fa;
+      }
+
+      /* Task list */
+      .task-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .task-item {
+        display: flex;
+        gap: 0.75rem;
+        padding: 0.6rem 0;
+        border-bottom: 1px solid #f1f5f9;
+        align-items: flex-start;
+      }
+      .task-item:last-child {
+        border-bottom: none;
+      }
+      .task-type.badge {
+        display: inline-block;
+        padding: 0.15rem 0.6rem;
+        border-radius: 12px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        background: #eef2f6;
+        color: #1a3a5c;
+        flex-shrink: 0;
+        margin-top: 0.15rem;
+      }
+      .task-content {
+        flex: 1;
+        min-width: 0;
+      }
+      .task-content a {
+        font-weight: 500;
+        color: #0b2b4a;
+        text-decoration: none;
+        display: inline-block;
+        word-break: break-word;
+      }
+      .task-content a:hover {
+        color: #1a6b8a;
+        text-decoration: underline;
+      }
+      .task-content small {
+        display: block;
+        font-size: 0.8rem;
+        color: #64748b;
+        margin-top: 0.1rem;
+      }
+
+      /* Simple table */
+      .simple-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+      }
+      .simple-table th {
+        text-align: left;
+        font-weight: 600;
+        color: #475569;
+        padding: 0.4rem 0.6rem 0.4rem 0;
+        border-bottom: 1px solid #e2e8f0;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+      .simple-table td {
+        padding: 0.5rem 0.6rem 0.5rem 0;
+        border-bottom: 1px solid #f1f5f9;
+        color: #1e293b;
+      }
+      .simple-table tr:last-child td {
+        border-bottom: none;
+      }
+      .simple-table td a {
+        color: #0b2b4a;
+        text-decoration: none;
+      }
+      .simple-table td a:hover {
+        color: #1a6b8a;
+        text-decoration: underline;
+      }
+
+      /* Status badges */
+      .status {
+        display: inline-block;
+        padding: 0.1rem 0.55rem;
+        border-radius: 12px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+      }
+      .status-review,
+      .status-pending {
+        background: #fef9c3;
+        color: #854d0e;
+      }
+      .status-approved {
+        background: #dcfce7;
+        color: #166534;
+      }
+      .status-declined,
+      .status-rejected {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+      .status-published {
+        background: #dbeafe;
+        color: #1e40af;
+      }
+
+      /* Compact document list */
+      .document-list.compact {
+        margin: 0;
+      }
+      .document-list.compact .document-card.compact {
+        padding: 0.5rem 0;
+        border: none;
+        border-bottom: 1px solid #f1f5f9;
+        border-radius: 0;
+        box-shadow: none;
+      }
+      .document-list.compact .document-card.compact:last-child {
+        border-bottom: none;
+      }
+      .document-list.compact .document-card.compact h3 {
+        font-size: 0.95rem;
+        margin: 0;
+      }
+      .document-list.compact .document-card.compact h3 a {
+        color: #0b2b4a;
+        text-decoration: none;
+      }
+      .document-list.compact .document-card.compact h3 a:hover {
+        color: #1a6b8a;
+        text-decoration: underline;
+      }
+      .document-list.compact .document-card.compact .meta {
+        font-size: 0.8rem;
+        color: #64748b;
+        margin: 0.1rem 0 0 0;
+      }
+
+      /* Stats grid */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        padding: 0.5rem 0;
+      }
+      .stat-item {
+        text-align: center;
+        background: #f8fafc;
+        padding: 0.75rem 0.5rem;
+        border-radius: 8px;
+      }
+      .stat-number {
+        display: block;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #0b2b4a;
+        line-height: 1.2;
+      }
+      .stat-label {
+        display: block;
+        font-size: 0.8rem;
+        color: #64748b;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin-top: 0.2rem;
+      }
+
+      /* Mentoring list */
+      .mentoring-list,
+      .bookmark-list,
+      .training-list,
+      .enrollments-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .mentoring-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        padding: 0.65rem 0;
+        border-bottom: 1px solid #f1f5f9;
+      }
+      .mentoring-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      .mentor-name {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #0b2b4a;
+      }
+      .mentor-role {
+        font-size: 0.8rem;
+        color: #64748b;
+      }
+      .mentor-topic {
+        font-size: 0.85rem;
+        color: #334155;
+        margin-top: 0.1rem;
+      }
+      .mentoring-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem 0.6rem;
+        align-items: center;
+        margin-top: 0.25rem;
+        font-size: 0.75rem;
+        color: #94a3b8;
+      }
+
+      /* Bookmark list */
+      .bookmark-list li {
+        position: relative;
+        padding-left: 1.25rem;
+        margin-bottom: 0.4rem;
+        font-size: 0.92rem;
+      }
+      .bookmark-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.6rem;
+        width: 0.35rem;
+        height: 0.35rem;
+        background-color: #1a6b8a;
+        border-radius: 50%;
+      }
+      .bookmark-list a {
+        color: #0b2b4a;
+        text-decoration: none;
+      }
+      .bookmark-list a:hover {
+        color: #1a6b8a;
+        text-decoration: underline;
+      }
+
+      /* Training list */
+      .training-list li {
+        position: relative;
+        padding-left: 1.25rem;
+        margin-bottom: 0.6rem;
+        font-size: 0.92rem;
+      }
+      .training-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.6rem;
+        width: 0.35rem;
+        height: 0.35rem;
+        background-color: #1a6b8a;
+        border-radius: 50%;
+      }
+      .training-list strong {
+        display: block;
+        font-weight: 600;
+        color: #0b2b4a;
+      }
+      .training-list small {
+        font-size: 0.8rem;
+        color: #64748b;
+        display: block;
+        margin-top: 0.05rem;
+      }
+
+      /* Enrollments list */
+      .enrollments-list li {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.5rem;
+        align-items: baseline;
+        padding: 0.55rem 0;
+        border-bottom: 1px solid #f1f5f9;
+        font-size: 0.9rem;
+      }
+      .enrollments-list li:last-child {
+        border-bottom: none;
+      }
+      .enrollments-list .course-title {
+        font-weight: 500;
+        color: #0b2b4a;
+        flex: 1;
+        min-width: 0;
+        word-break: break-word;
+      }
+      .enrollments-list .course-status {
+        font-size: 0.72rem;
+      }
+
+      /* Muted note */
+      .muted-note {
+        font-size: 0.9rem;
+        color: #64748b;
+        margin: 0.25rem 0;
+      }
+      .btn-mini {
+        display: inline-block;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #1a6b8a;
+        text-decoration: none;
+        margin-top: 0.35rem;
+      }
+      .btn-mini:hover {
+        text-decoration: underline;
+      }
+
+      /* Responsive */
+      @media (max-width: 992px) {
+        .dashboard-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 768px) {
+        .page-dashboard h1 {
+          font-size: 1.8rem;
+        }
+        .dashboard-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .header-actions {
+          width: 100%;
+          flex-direction: column;
+        }
+        .header-actions .btn {
+          width: 100%;
+        }
+        .stats-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .simple-table {
+          font-size: 0.82rem;
+        }
+      }
+      @media (max-width: 480px) {
+        .page-dashboard p {
+          font-size: 0.95rem;
+        }
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+        .task-item {
+          flex-direction: column;
+          gap: 0.2rem;
+        }
+        .task-type.badge {
+          align-self: flex-start;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="page-dashboard">
+    <!-- ====================== HEADER ====================== -->
+    <header class="site-header">
+      <div class="container header-container">
+        <div class="logo">
+          <a href="home.html">
+            <img
+              src="assets/enec-logo.webp"
+              alt="Ethiopian Nuclear Energy Commission"
+            />
+            <span class="logo-text"> </span>
+          </a>
+        </div>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li>
+              <a href="Knowledge Repository.html">Knowledge Repository</a>
+            </li>
+            <li><a href="lessons.html">Lessons Learned</a></li>
+            <li><a href="learning.html">Learning &amp; Competence</a></li>
+            <li><a href="communities.html">Communities</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="about.html">About KMS</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-utility">
+          <div class="search-box">
+            <form action="search.html" method="get">
+              <input
+                type="search"
+                name="q"
+                placeholder="Search knowledge..."
+                aria-label="Search"
+              />
+              <button type="submit">Search</button>
+            </form>
+          </div>
+
+          <div class="language-switcher">
+            <a href="?lang=en" class="lang-btn active" data-lang="en">EN</a>
+            <a href="?lang=am" class="lang-btn" data-lang="am">አማ</a>
+          </div>
+
+          <div class="user-menu" id="user-menu"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ====================== MAIN CONTENT ====================== -->
+    <main class="main-content">
+      <div class="container">
+        <div class="page-header dashboard-header">
+          <div>
+            <h1>My Dashboard</h1>
+            <p class="page-description" id="dashboard-greeting">
+              Welcome back. Here’s an overview of your knowledge activity.
+            </p>
+          </div>
+          <div class="header-actions">
+            <a href="submit-document.html" class="btn btn-primary"
+              >+ Upload Document</a
+            >
+            <a href="submit-lesson.html" class="btn btn-outline"
+              >+ Submit Lesson Learned</a
+            >
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <!-- ====================== MAIN COLUMN ====================== -->
+          <div class="dashboard-main">
+            <!-- Pending Tasks -->
+            <section class="dashboard-card">
+              <div class="card-header">
+                <h2>Pending Tasks</h2>
+                <a href="Knowledge Repository.html" class="view-all"
+                  >View all</a
+                >
+              </div>
+              <div class="card-body">
+                <ul class="task-list" id="pending-tasks">
+                  <li class="muted-note">Loading…</li>
+                </ul>
+              </div>
+            </section>
+
+            <!-- Recent Contributions -->
+            <section class="dashboard-card">
+              <div class="card-header">
+                <h2>My Recent Contributions</h2>
+                <a href="Knowledge Repository.html" class="view-all"
+                  >View all</a
+                >
+              </div>
+              <div class="card-body">
+                <table class="simple-table">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Type</th>
+                      <th>Status</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id="contributions-body">
+                    <tr>
+                      <td colspan="4" class="muted-note">Loading…</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <!-- Recommended -->
+            <section class="dashboard-card">
+              <div class="card-header">
+                <h2>Recommended for You</h2>
+                <a href="Knowledge Repository.html" class="view-all"
+                  >Browse all</a
+                >
+              </div>
+              <div class="card-body">
+                <div class="document-list compact" id="recommended-list">
+                  <p class="muted-note">Loading…</p>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- ====================== SIDEBAR ====================== -->
+          <aside class="dashboard-sidebar">
+            <!-- My Activity -->
+            <section class="dashboard-card stats-card">
+              <div class="card-header">
+                <h2>My Activity</h2>
+              </div>
+              <div class="card-body">
+                <div class="stats-grid">
+                  <div class="stat-item">
+                    <span class="stat-number" id="stat-documents">—</span>
+                    <span class="stat-label">Documents</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-number" id="stat-lessons">—</span>
+                    <span class="stat-label">Lessons</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-number" id="stat-bookmarks">—</span>
+                    <span class="stat-label">Bookmarks</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-number" id="stat-pending">—</span>
+                    <span class="stat-label">Pending</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- My Mentoring Requests -->
+            <section class="dashboard-card">
+              <div class="card-header">
+                <h2>My Mentoring Requests</h2>
+                <a href="learning.html#mentoring" class="view-all"
+                  >Request new →</a
+                >
+              </div>
+              <div class="card-body">
+                <ul class="mentoring-list" id="mentoring-requests">
+                  <li class="muted-note">Loading…</li>
+                </ul>
+              </div>
+            </section>
+
+            <!-- My Course Enrollments -->
+            <section class="dashboard-card">
+              <div class="card-header">
+                <h2>My Course Enrollments</h2>
+                <a
+                  href="learning-detail.html?section=catalogue"
+                  class="view-all"
+                  >Browse courses →</a
+                >
+              </div>
+              <div class="card-body">
+                <ul class="enrollments-list" id="enrollments-list">
+                  <li class="muted-note">Loading…</li>
+                </ul>
+              </div>
+            </section>
+
+            <!-- My Bookmarks -->
+            <section class="dashboard-card">
+              <div class="card-header">
+                <h2>My Bookmarks</h2>
+                <a href="Knowledge Repository.html" class="view-all">Browse</a>
+              </div>
+              <div class="card-body">
+                <ul class="bookmark-list" id="bookmark-list">
+                  <li class="muted-note">Loading…</li>
+                </ul>
+              </div>
+            </section>
+
+            <!-- Upcoming Training -->
+            <section class="dashboard-card">
+              <div class="card-header">
+                <h2>Upcoming Training</h2>
+                <a href="learning.html#catalogue" class="view-all">View all</a>
+              </div>
+              <div class="card-body">
+                <ul class="training-list" id="training-list">
+                  <li class="muted-note">Loading…</li>
+                </ul>
+              </div>
+            </section>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <!-- ====================== FOOTER ====================== -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h3>ENEC KMS</h3>
+            <p>
+              Supporting the safe and peaceful development of nuclear science
+              and technology in Ethiopia.
+            </p>
+          </div>
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+              <li>
+                <a href="Knowledge Repository.html">Knowledge Repository</a>
+              </li>
+              <li><a href="lessons.html">Lessons Learned</a></li>
+              <li><a href="learning.html">Learning &amp; Competence</a></li>
+              <li><a href="about.html">About the KMS</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Resources</h4>
+            <ul>
+              <li>
+                <a href="https://enec.gov.et" target="_blank" rel="noopener"
+                  >Main ENEC Website</a
+                >
+              </li>
+              <li>
+                <a href="https://www.iaea.org" target="_blank" rel="noopener"
+                  >IAEA</a
+                >
+              </li>
+              <li><a href="help.html">Help &amp; Support</a></li>
+              <li><a href="contact.html">Contact KM Team</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <p>
+              Ethiopian Nuclear Energy Commission<br />
+              Addis Ababa, Ethiopia<br />
+              <a href="mailto:enecinfo@enec.gov.et">enecinfo@enec.gov.et</a>
+            </p>
+
+            <div class="footer-social">
+              <h4>Follow Us</h4>
+              <ul class="social-links">
+                <!-- Facebook -->
+                <li>
+                  <a
+                    href="https://www.facebook.com/EthiopianNuclearEnergy/"
+                    class="social-facebook"
+                    aria-label="Facebook"
+                    title="Facebook"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+
+                <!-- X (Twitter) -->
+                <li>
+                  <a
+                    href="https://x.com/ENEC_Ethiopia"
+                    class="social-x"
+                    aria-label="X (Twitter)"
+                    title="X (Twitter)"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M18.244 2H21.5l-7.19 8.21L22.5 22h-6.586l-5.16-6.72L4.808 22H1.55l7.694-8.786L1.5 2h6.754l4.658 6.148L18.244 2zm-1.157 18h1.83L7.03 4H5.06l12.027 16z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+
+                <!-- LinkedIn -->
+                <li>
+                  <a
+                    href="https://et.linkedin.com/in/ethiopian-nuclear-energy-commission-11b47b3ba"
+                    class="social-linkedin"
+                    aria-label="LinkedIn"
+                    title="LinkedIn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.36V9h3.4v1.56h.05a3.73 3.73 0 0 1 3.36-1.85c3.59 0 4.25 2.36 4.25 5.43v6.31zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+
+                <!-- WhatsApp -->
+                <li>
+                  <a
+                    href="https://wa.me/251911234567"
+                    class="social-whatsapp"
+                    aria-label="WhatsApp"
+                    title="WhatsApp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M17.47 14.38c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.19 5.07 4.47.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35zM12 22a9.94 9.94 0 0 1-5.07-1.39L2 22l1.44-4.83A9.94 9.94 0 0 1 2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm0-18.4c-4.63 0-8.4 3.77-8.4 8.4 0 1.61.45 3.11 1.24 4.39l-.81 2.71 2.82-.74a8.37 8.37 0 0 0 5.15 1.76c4.63 0 8.4-3.77 8.4-8.4s-3.77-8.4-8.4-8.4z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+
+                <!-- Telegram -->
+                <li>
+                  <a
+                    href="https://t.me/ENEC_Ethiopia"
+                    class="social-telegram"
+                    aria-label="Telegram"
+                    title="Telegram"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+
+                <!-- TikTok -->
+                <li>
+                  <a
+                    href="https://www.tiktok.com/@enec.et?is_from_webapp=1&sender_device=pc"
+                    class="social-tiktok"
+                    aria-label="TikTok"
+                    title="TikTok"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>
+            &copy; 2026 Ethiopian Nuclear Energy Commission. All rights
+            reserved.
+          </p>
+          <div class="footer-links">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Use</a>
+            <a href="accessibility.html">Accessibility</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/i18n.js"></script>
+
+    <script>
+      /* ============================================================
+         DASHBOARD SCRIPT
+         Every card loads independently. Failures in one never break
+         the others. If the API is offline, static fallbacks stay.
+         ============================================================ */
+      document.addEventListener("DOMContentLoaded", function () {
+        const API_BASE = "http://localhost:3000";
+        console.log("[Dashboard] Script loaded");
+
+        // ------------------------------------------------------------
+        // Read the logged-in user (tolerant of key/field casing)
+        // ------------------------------------------------------------
+        function getCurrentUser() {
+          const candidates = ["enec_user", "enecUser", "user", "currentUser"];
+          for (const key of candidates) {
+            try {
+              const raw = localStorage.getItem(key);
+              if (!raw) continue;
+              const parsed = JSON.parse(raw);
+              if (parsed && parsed.user) return parsed.user;
+              if (parsed && typeof parsed === "object") return parsed;
+              if (typeof parsed === "number") return { id: parsed };
+              if (typeof parsed === "string" && !isNaN(Number(parsed))) {
+                return { id: Number(parsed) };
+              }
+            } catch (_) {}
+          }
+          return null;
+        }
+
+        function getUserId(user) {
+          if (!user) return null;
+          return (
+            user.id ||
+            user.Id ||
+            user.userId ||
+            user.UserId ||
+            user.user_id ||
+            null
+          );
+        }
+
+        const user = getCurrentUser();
+        const userId = getUserId(user);
+        const userName =
+          (user &&
+            (user.name || user.fullName || user.FullName || user.username)) ||
+          "there";
+
+        console.log("[Dashboard] user:", { userId, userName });
+
+        // Update greeting
+        const greeting = document.getElementById("dashboard-greeting");
+        if (greeting) {
+          greeting.textContent =
+            "Welcome back, " +
+            userName +
+            ". Here’s an overview of your knowledge activity.";
+        }
+
+        // ------------------------------------------------------------
+        // Helpers
+        // ------------------------------------------------------------
+        function formatDate(v) {
+          if (!v) return "—";
+          const d = new Date(v);
+          if (isNaN(d.getTime())) return String(v);
+          return d.toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          });
+        }
+
+        function statusClass(s) {
+          const t = String(s || "").toLowerCase();
+          if (t.includes("approved") || t.includes("accepted"))
+            return "status-approved";
+          if (t.includes("published")) return "status-published";
+          if (t.includes("declined") || t.includes("rejected"))
+            return "status-declined";
+          if (t.includes("review") || t.includes("pending"))
+            return "status-pending";
+          return "status-review";
+        }
+
+        function setText(id, value) {
+          const el = document.getElementById(id);
+          if (el) el.textContent = String(value);
+        }
+
+        // Fetch that never throws — returns [] on any failure
+        async function safeJson(url) {
+          try {
+            const res = await fetch(url);
+            if (!res.ok) {
+              console.warn("[Dashboard] HTTP", res.status, url);
+              return [];
+            }
+            const data = await res.json();
+            if (Array.isArray(data)) return data;
+            if (data && Array.isArray(data.data)) return data.data;
+            return [];
+          } catch (err) {
+            console.warn("[Dashboard] Fetch failed:", url, err.message);
+            return [];
+          }
+        }
+
+        function readBookmarks() {
+          try {
+            const raw = localStorage.getItem(
+              "enec_bookmarks_" + (userId || "guest"),
+            );
+            const arr = raw ? JSON.parse(raw) : [];
+            return Array.isArray(arr) ? arr : [];
+          } catch (_) {
+            return [];
+          }
+        }
+
+        // ------------------------------------------------------------
+        // Main loader
+        // ------------------------------------------------------------
+        async function loadAll() {
+          const [documents, lessons, mentoringRequests, enrollments, courses] =
+            await Promise.all([
+              safeJson(API_BASE + "/api/documents"),
+              safeJson(API_BASE + "/api/lessons"),
+              userId
+                ? safeJson(API_BASE + "/api/mentoring-requests/" + userId)
+                : Promise.resolve([]),
+              userId
+                ? safeJson(API_BASE + "/api/enrollments/" + userId)
+                : Promise.resolve([]),
+              safeJson(API_BASE + "/api/courses"),
+            ]);
+
+          console.log("[Dashboard] Loaded:", {
+            documents: documents.length,
+            lessons: lessons.length,
+            mentoringRequests: mentoringRequests.length,
+            enrollments: enrollments.length,
+            courses: courses.length,
+          });
+
+          renderStats(documents, lessons);
+          renderContributions(documents, lessons);
+          renderPendingTasks(documents, lessons);
+          renderRecommended(documents);
+          renderMentoringRequests(mentoringRequests);
+          renderEnrollments(enrollments);
+          renderBookmarks();
+          renderUpcomingTraining(courses);
+
+          if (window.ENEC_i18n) window.ENEC_i18n.apply();
+        }
+
+        // ------------------------------------------------------------
+        // My Activity stats
+        // ------------------------------------------------------------
+        function renderStats(documents, lessons) {
+          const myDocs = userId
+            ? documents.filter(
+                (d) =>
+                  d.AuthorId === userId ||
+                  d.UserId === userId ||
+                  d.CreatedBy === userId,
+              )
+            : documents;
+          const myLessons = userId
+            ? lessons.filter(
+                (l) =>
+                  l.AuthorId === userId ||
+                  l.UserId === userId ||
+                  l.CreatedBy === userId,
+              )
+            : lessons;
+
+          const bookmarks = readBookmarks();
+          const pending =
+            documents.filter((d) =>
+              /review|pending/i.test(String(d.Status || "")),
+            ).length +
+            lessons.filter((l) =>
+              /review|pending/i.test(String(l.Status || "")),
+            ).length;
+
+          setText(
+            "stat-documents",
+            myDocs.length > 0 ? myDocs.length : documents.length,
+          );
+          setText(
+            "stat-lessons",
+            myLessons.length > 0 ? myLessons.length : lessons.length,
+          );
+          setText("stat-bookmarks", bookmarks.length);
+          setText("stat-pending", pending);
+        }
+
+        // ------------------------------------------------------------
+        // Recent Contributions table
+        // ------------------------------------------------------------
+        function renderContributions(documents, lessons) {
+          const tbody = document.getElementById("contributions-body");
+          if (!tbody) return;
+
+          const mine = [];
+          documents.forEach((d) => {
+            if (
+              !userId ||
+              d.AuthorId === userId ||
+              d.UserId === userId ||
+              d.CreatedBy === userId
+            ) {
+              mine.push({
+                title: d.Title || "Untitled Document",
+                type: "Document",
+                status: d.Status || "Under Review",
+                date: d.PublishedAt || d.CreatedAt || d.SubmittedAt,
+                link: "document.html?id=" + d.Id,
+              });
+            }
+          });
+          lessons.forEach((l) => {
+            if (
+              !userId ||
+              l.AuthorId === userId ||
+              l.UserId === userId ||
+              l.CreatedBy === userId
+            ) {
+              mine.push({
+                title: l.Title || "Untitled Lesson",
+                type: "Lesson Learned",
+                status: l.Status || "Under Review",
+                date: l.SubmittedAt || l.CreatedAt,
+                link: "lesson-detail.html?id=" + l.Id,
+              });
+            }
+          });
+
+          if (mine.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="4" class="muted-note">No contributions yet. <a href="submit-document.html" class="btn-mini">Submit your first document →</a></td></tr>`;
+            return;
+          }
+
+          mine.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+
+          tbody.innerHTML = mine
+            .slice(0, 5)
+            .map(
+              (item) => `
+                <tr>
+                  <td><a href="${item.link}">${item.title}</a></td>
+                  <td>${item.type}</td>
+                  <td><span class="status ${statusClass(item.status)}">${item.status}</span></td>
+                  <td>${formatDate(item.date)}</td>
+                </tr>`,
+            )
+            .join("");
+        }
+
+        // ------------------------------------------------------------
+        // Pending Tasks
+        // ------------------------------------------------------------
+        function renderPendingTasks(documents, lessons) {
+          const ul = document.getElementById("pending-tasks");
+          if (!ul) return;
+
+          const tasks = [];
+          documents.forEach((d) => {
+            if (/review|pending/i.test(String(d.Status || ""))) {
+              tasks.push({
+                type: "Review",
+                title: d.Title || "Untitled Document",
+                note: "Document awaiting review",
+                link: "document.html?id=" + d.Id,
+              });
+            }
+          });
+          lessons.forEach((l) => {
+            if (/review|pending/i.test(String(l.Status || ""))) {
+              tasks.push({
+                type: "Review",
+                title: l.Title || "Untitled Lesson",
+                note: "Lesson awaiting review",
+                link: "lesson-detail.html?id=" + l.Id,
+              });
+            }
+          });
+
+          if (tasks.length === 0) {
+            ul.innerHTML = `<li class="muted-note">You have no pending tasks. 🎉</li>`;
+            return;
+          }
+
+          ul.innerHTML = tasks
+            .slice(0, 5)
+            .map(
+              (t) => `
+                <li class="task-item">
+                  <span class="task-type badge">${t.type}</span>
+                  <div class="task-content">
+                    <a href="${t.link}">${t.title}</a>
+                    <small>${t.note}</small>
+                  </div>
+                </li>`,
+            )
+            .join("");
+        }
+
+        // ------------------------------------------------------------
+        // Recommended (latest published documents)
+        // ------------------------------------------------------------
+        function renderRecommended(documents) {
+          const container = document.getElementById("recommended-list");
+          if (!container) return;
+
+          if (!Array.isArray(documents) || documents.length === 0) {
+            container.innerHTML = `<p class="muted-note">No documents available yet.</p>`;
+            return;
+          }
+
+          const top = documents.slice(0, 3);
+          container.innerHTML = top
+            .map(
+              (d) => `
+                <article class="document-card compact">
+                  <h3><a href="document.html?id=${d.Id}">${d.Title || "Untitled"}</a></h3>
+                  <p class="meta">${d.CategoryName || ""} ${
+                    d.Criticality ? "• " + d.Criticality : ""
+                  }</p>
+                </article>`,
+            )
+            .join("");
+        }
+
+        // ------------------------------------------------------------
+        // My Mentoring Requests
+        // ------------------------------------------------------------
+        function renderMentoringRequests(requests) {
+          const ul = document.getElementById("mentoring-requests");
+          if (!ul) return;
+
+          if (!userId) {
+            ul.innerHTML = `<li class="muted-note">Log in to see your mentoring requests.</li>`;
+            return;
+          }
+
+          if (!Array.isArray(requests) || requests.length === 0) {
+            ul.innerHTML = `
+              <li class="muted-note">
+                You haven't submitted any mentoring requests yet.
+                <br />
+                <a href="learning.html#mentoring" class="btn-mini">Browse mentors →</a>
+              </li>`;
+            return;
+          }
+
+          ul.innerHTML = requests
+            .slice(0, 6)
+            .map(
+              (r) => `
+                <li class="mentoring-item">
+                  <span class="mentor-name">${r.MentorName || "Mentor"}</span>
+                  ${
+                    r.MentorRole
+                      ? `<span class="mentor-role">${r.MentorRole}</span>`
+                      : ""
+                  }
+                  ${r.Topic ? `<span class="mentor-topic">${r.Topic}</span>` : ""}
+                  <div class="mentoring-meta">
+                    <span class="status ${statusClass(r.Status)}">${r.Status || "Pending"}</span>
+                    <span>${formatDate(r.CreatedAt)}</span>
+                  </div>
+                </li>`,
+            )
+            .join("");
+        }
+
+        // ------------------------------------------------------------
+        // My Course Enrollments
+        // ------------------------------------------------------------
+        function renderEnrollments(enrollments) {
+          const ul = document.getElementById("enrollments-list");
+          if (!ul) return;
+
+          if (!userId) {
+            ul.innerHTML = `<li class="muted-note">Log in to see your course enrollments.</li>`;
+            return;
+          }
+
+          if (!Array.isArray(enrollments) || enrollments.length === 0) {
+            ul.innerHTML = `
+              <li class="muted-note">
+                You haven't enrolled in any courses yet.
+                <br />
+                <a href="learning-detail.html?section=catalogue" class="btn-mini">Browse courses →</a>
+              </li>`;
+            return;
+          }
+
+          ul.innerHTML = enrollments
+            .slice(0, 6)
+            .map(
+              (e) => `
+                <li>
+                  <span class="course-title">${e.CourseTitle || "Course"}</span>
+                  <span class="status course-status ${statusClass(e.Status)}">${
+                    e.Status || "Requested"
+                  }</span>
+                </li>`,
+            )
+            .join("");
+        }
+
+        // ------------------------------------------------------------
+        // Bookmarks (localStorage)
+        // ------------------------------------------------------------
+        function renderBookmarks() {
+          const ul = document.getElementById("bookmark-list");
+          if (!ul) return;
+
+          const list = readBookmarks();
+          if (list.length === 0) {
+            ul.innerHTML = `
+              <li class="muted-note">
+                No bookmarks yet.
+                <br />
+                <a href="Knowledge Repository.html" class="btn-mini">Browse the repository →</a>
+              </li>`;
+            return;
+          }
+
+          ul.innerHTML = list
+            .slice(0, 6)
+            .map((b) => {
+              const title = typeof b === "string" ? b : b.title || "Bookmark";
+              const link =
+                typeof b === "string"
+                  ? "#"
+                  : b.link || "document.html?id=" + (b.id || "");
+              return `<li><a href="${link}">${title}</a></li>`;
+            })
+            .join("");
+        }
+
+        // ------------------------------------------------------------
+        // Upcoming Training (Online courses, soonest first)
+        // ------------------------------------------------------------
+        function renderUpcomingTraining(courses) {
+          const ul = document.getElementById("training-list");
+          if (!ul) return;
+
+          if (!Array.isArray(courses) || courses.length === 0) {
+            ul.innerHTML = `<li class="muted-note">No training scheduled.</li>`;
+            return;
+          }
+
+          const upcoming = courses
+            .filter((c) => c.Mode === "Online" || c.Mode === "Hybrid")
+            .slice(0, 3);
+
+          if (upcoming.length === 0) {
+            ul.innerHTML = `<li class="muted-note">No upcoming training scheduled.</li>`;
+            return;
+          }
+
+          ul.innerHTML = upcoming
+            .map(
+              (c) => `
+                <li>
+                  <strong>${c.Title}</strong>
+                  <small>${c.StartDate || ""} • ${c.Mode || ""}${
+                    c.Location ? " • " + c.Location : ""
+                  }</small>
+                </li>`,
+            )
+            .join("");
+        }
+
+        // ------------------------------------------------------------
+        // Go
+        // ------------------------------------------------------------
+        loadAll();
+      });
+    </script>
+  </body>
+</html>

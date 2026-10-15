@@ -1,0 +1,1361 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="ENEC Learning & Competence - Training materials, courses, competency frameworks, and professional development resources."
+    />
+    <title>Learning & Competence | ENEC Knowledge Management System</title>
+    <link rel="icon" href="assets/favicon.jpg" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <style>
+      .page-learning {
+        font-family:
+          "Segoe UI",
+          Roboto,
+          system-ui,
+          -apple-system,
+          sans-serif;
+        color: #1e293b;
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .page-learning p {
+        margin-bottom: 1.25rem;
+        font-size: 1.0625rem;
+        line-height: 1.8;
+        color: #1e293b;
+        max-width: 75ch;
+      }
+
+      .page-learning .page-description {
+        font-size: 1.125rem;
+        line-height: 1.7;
+        color: #334155;
+        max-width: 70ch;
+      }
+
+      .page-learning h1 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: #0b2b4a;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+        margin: 0 0 0.5rem 0;
+      }
+
+      .page-learning h2 {
+        font-size: 1.6rem;
+        font-weight: 600;
+        color: #0b2b4a;
+        margin-top: 0;
+        margin-bottom: 0.75rem;
+        letter-spacing: -0.01em;
+      }
+
+      .page-learning .section-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #0b2b4a;
+        margin: 0;
+        letter-spacing: -0.01em;
+      }
+
+      .page-learning h3 {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: #1a3a5c;
+        margin: 0.75rem 0 0.4rem 0;
+        line-height: 1.4;
+      }
+
+      .page-learning .learning-section ul,
+      .page-learning .opportunity-list {
+        margin: 0.5rem 0 1.25rem 0;
+        padding-left: 0;
+        list-style: none;
+      }
+
+      .page-learning .learning-section ul li,
+      .page-learning .opportunity-list li {
+        position: relative;
+        padding-left: 1.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: #1e293b;
+      }
+
+      .page-learning .learning-section ul li::before,
+      .page-learning .opportunity-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.65rem;
+        width: 0.45rem;
+        height: 0.45rem;
+        background-color: #1a6b8a;
+        border-radius: 50%;
+      }
+
+      .site-header ul,
+      .site-footer ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .site-header ul li,
+      .site-footer ul li {
+        padding-left: 0;
+        margin-bottom: 0;
+      }
+
+      .site-header ul li::before,
+      .site-footer ul li::before {
+        display: none !important;
+      }
+
+      .site-footer p {
+        margin-bottom: 0.35rem;
+        max-width: 100%;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        color: inherit;
+        -webkit-font-smoothing: subpixel-antialiased;
+        -moz-osx-font-smoothing: auto;
+      }
+
+      .site-footer,
+      .site-footer h3,
+      .site-footer h4,
+      .site-footer a,
+      .site-footer li {
+        -webkit-font-smoothing: subpixel-antialiased;
+        -moz-osx-font-smoothing: auto;
+      }
+
+      .page-learning .site-footer .footer-col h3,
+      .page-learning .site-footer .footer-col h4,
+      .site-footer .footer-col h3,
+      .site-footer .footer-col h4 {
+        color: #ffffff;
+        font-size: 1rem;
+        font-weight: 700;
+        margin: 0 0 12px 0;
+        line-height: 1.3;
+        letter-spacing: 0;
+      }
+
+      .site-footer .footer-col h4 {
+        margin-bottom: 0.6rem;
+      }
+
+      /* ============================================================
+         FOOTER — FOLLOW US SOCIAL BUTTONS
+         Six round pill buttons, always in ONE row, brand-colored hover
+         ============================================================ */
+      .site-footer .footer-social {
+        margin-top: 1.25rem;
+      }
+
+      .site-footer .footer-social h4 {
+        color: #ffffff;
+        font-size: 1rem;
+        font-weight: 700;
+        margin: 0 0 10px 0;
+      }
+
+      .site-footer .social-links {
+        display: flex;
+        flex-wrap: nowrap; /* keep all six on a single row */
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .site-footer .social-links li {
+        flex: 0 0 auto;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .site-footer .social-links li::before,
+      .site-footer .social-links li::marker {
+        content: none !important;
+        display: none !important;
+      }
+
+      .site-footer .social-links a {
+        --brand: #64748b;
+        width: 40px;
+        height: 40px;
+        border-radius: 999px; /* round pill */
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        color: #e2e8f0;
+        text-decoration: none;
+        line-height: 1;
+        transition:
+          background-color 0.25s ease,
+          border-color 0.25s ease,
+          color 0.25s ease,
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+
+      .site-footer .social-links a svg {
+        width: 18px;
+        height: 18px;
+        display: block;
+        fill: currentColor;
+      }
+
+      .site-footer .social-links a:hover,
+      .site-footer .social-links a:focus-visible {
+        background: var(--brand);
+        border-color: var(--brand);
+        color: #ffffff;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
+        outline: none;
+      }
+
+      .site-footer .social-links a:focus-visible {
+        outline: 3px solid rgba(255, 255, 255, 0.5);
+        outline-offset: 2px;
+      }
+
+      /* Brand colors on hover */
+      .site-footer .social-links .social-facebook {
+        --brand: #1877f2;
+      }
+      .site-footer .social-links .social-x {
+        --brand: #000000;
+      }
+      .site-footer .social-links .social-linkedin {
+        --brand: #0a66c2;
+      }
+      .site-footer .social-links .social-whatsapp {
+        --brand: #25d366;
+      }
+      .site-footer .social-links .social-telegram {
+        --brand: #229ed9;
+      }
+      .site-footer .social-links .social-tiktok {
+        --brand: #010101;
+      }
+
+      /* TikTok: subtle brand accent ring on hover */
+      .site-footer .social-links .social-tiktok:hover,
+      .site-footer .social-links .social-tiktok:focus-visible {
+        box-shadow:
+          0 0 0 2px rgba(37, 244, 238, 0.55),
+          0 8px 18px rgba(0, 0, 0, 0.28);
+      }
+
+      /* Keep all six in one row on small screens — shrink instead of wrapping */
+      @media (max-width: 480px) {
+        .site-footer .social-links {
+          gap: 6px;
+        }
+        .site-footer .social-links a {
+          width: 36px;
+          height: 36px;
+        }
+        .site-footer .social-links a svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+
+      @media (max-width: 340px) {
+        .site-footer .social-links a {
+          width: 32px;
+          height: 32px;
+        }
+        .site-footer .social-links a svg {
+          width: 14px;
+          height: 14px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .site-footer .social-links a {
+          transition: none;
+        }
+        .site-footer .social-links a:hover,
+        .site-footer .social-links a:focus-visible {
+          transform: none;
+        }
+      }
+      /* ===================== END FOOTER SOCIAL ===================== */
+
+      .learning-nav .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin: 1.5rem 0 2.5rem 0;
+      }
+
+      .card.card-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 1.5rem 1rem;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        transition:
+          box-shadow 0.2s,
+          transform 0.2s;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .card.card-link:hover {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        transform: translateY(-3px);
+        border-color: #cbd5e1;
+      }
+
+      .card-icon {
+        font-size: 2.2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .card.card-link h3 {
+        font-size: 1.1rem;
+        margin: 0.2rem 0 0.4rem 0;
+        color: #0b2b4a;
+      }
+
+      .card.card-link p {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        color: #475569;
+        margin: 0;
+        max-width: 100%;
+      }
+
+      .training-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin: 1rem 0 1.5rem 0;
+      }
+
+      .training-card {
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 1.25rem 1.5rem;
+        background: #ffffff;
+        transition: box-shadow 0.2s;
+      }
+
+      .training-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      }
+
+      .training-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 0.75rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 0.15rem 0.7rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        line-height: 1.5;
+        background: #eef2f6;
+        color: #1a3a5c;
+      }
+
+      .badge-open {
+        background: #dcfce7;
+        color: #166534;
+      }
+
+      .training-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin: 0 0 0.3rem 0;
+      }
+
+      .training-title a {
+        color: #0b2b4a;
+        text-decoration: none;
+      }
+
+      .training-title a:hover {
+        color: #1a6b8a;
+        text-decoration: underline;
+      }
+
+      .training-summary {
+        font-size: 1rem;
+        line-height: 1.7;
+        color: #334155;
+        margin-bottom: 0.75rem;
+        max-width: 100%;
+      }
+
+      .training-footer {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem 1.25rem;
+        font-size: 0.85rem;
+        color: #475569;
+        border-top: 1px solid #eef2f6;
+        padding-top: 0.75rem;
+      }
+
+      .training-footer .btn {
+        margin-left: auto;
+      }
+
+      .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+        margin: 1rem 0 1.5rem 0;
+      }
+
+      .cards-grid .card {
+        padding: 1.25rem 1.5rem;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        transition:
+          box-shadow 0.2s,
+          transform 0.2s;
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .cards-grid .card:hover {
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+        transform: translateY(-2px);
+      }
+
+      .cards-grid .card h3 {
+        font-size: 1.1rem;
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        color: #0b2b4a;
+      }
+
+      .cards-grid .card p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #475569;
+        margin-bottom: 0.75rem;
+        max-width: 100%;
+        flex-grow: 1;
+      }
+
+      .cards-grid .card .btn {
+        align-self: flex-start;
+      }
+
+      .profession-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin: 1rem 0 1.5rem 0;
+      }
+
+      .profession-card {
+        display: flex;
+        flex-direction: column;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 1.5rem 1.5rem 1.25rem;
+        transition:
+          box-shadow 0.2s,
+          transform 0.2s,
+          border-color 0.2s;
+        position: relative;
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .profession-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #1a6b8a, #4a8da8);
+      }
+
+      .profession-card:hover {
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07);
+        transform: translateY(-3px);
+        border-color: #cbd5e1;
+      }
+
+      .profession-card:focus-visible {
+        outline: 3px solid #1a6b8a;
+        outline-offset: 3px;
+      }
+
+      .profession-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        line-height: 1;
+      }
+
+      .profession-card h3 {
+        font-size: 1.15rem;
+        margin: 0 0 0.35rem 0;
+        color: #0b2b4a;
+        font-weight: 700;
+      }
+
+      .profession-card .profession-desc {
+        font-size: 0.92rem;
+        line-height: 1.55;
+        color: #475569;
+        margin-bottom: 0.75rem;
+      }
+
+      .profession-card .competency-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: #1a6b8a;
+        margin-bottom: 0.3rem;
+      }
+
+      .profession-card ul.competency-list {
+        margin: 0 0 1rem 0;
+        padding-left: 0;
+        list-style: none;
+      }
+
+      .profession-card ul.competency-list li {
+        position: relative;
+        padding-left: 1.1rem;
+        font-size: 0.88rem;
+        line-height: 1.55;
+        color: #334155;
+        margin-bottom: 0.28rem;
+      }
+
+      .profession-card ul.competency-list li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.55rem;
+        width: 0.35rem;
+        height: 0.35rem;
+        border-radius: 50%;
+        background: #4a8da8;
+      }
+
+      .profession-card .profession-footer {
+        margin-top: auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+        padding-top: 0.75rem;
+        border-top: 1px solid #eef2f6;
+      }
+
+      .profession-card .profession-footer .level-tag {
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: #475569;
+        background: #f1f5f9;
+        padding: 0.15rem 0.55rem;
+        border-radius: 10px;
+      }
+
+      .profession-card .profession-footer .btn {
+        margin-left: auto;
+        pointer-events: none;
+      }
+
+      .section-header {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 0.5rem 1rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .view-all {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #1a6b8a;
+        text-decoration: none;
+      }
+
+      .view-all:hover {
+        text-decoration: underline;
+      }
+
+      .mentoring-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin: 1.5rem 0 1rem 0;
+      }
+
+      .mentoring-actions .btn {
+        padding: 0.5rem 1.2rem;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+
+      .btn-primary {
+        background: #1a6b8a;
+        color: #ffffff;
+        border: 1px solid #1a6b8a;
+      }
+
+      .btn-primary:hover {
+        background: #145a77;
+        border-color: #145a77;
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: #1a6b8a;
+        border: 1px solid #1a6b8a;
+      }
+
+      .btn-outline:hover {
+        background: #eef6fa;
+      }
+
+      .btn-sm {
+        font-size: 0.85rem;
+        padding: 0.2rem 0.8rem;
+      }
+
+      .learning-section {
+        margin-bottom: 3.5rem;
+      }
+
+      .learning-section:last-of-type {
+        margin-bottom: 2rem;
+      }
+
+      .loading-note {
+        grid-column: 1 / -1;
+        color: #64748b;
+        padding: 1rem 0;
+      }
+
+      @media (max-width: 1100px) {
+        .profession-grid {
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+      }
+
+      @media (max-width: 900px) {
+        .profession-grid {
+          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+          gap: 1.25rem;
+        }
+        .profession-card {
+          padding: 1.35rem 1.25rem 1.1rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .page-learning h1 {
+          font-size: 1.8rem;
+        }
+        .page-learning .page-description {
+          font-size: 1rem;
+        }
+        .section-title {
+          font-size: 1.3rem;
+        }
+        .training-card {
+          padding: 1rem 1.25rem;
+        }
+        .training-footer .btn {
+          margin-left: 0;
+          margin-top: 0.4rem;
+        }
+        .cards-grid {
+          grid-template-columns: 1fr;
+        }
+        .learning-nav .cards-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .mentoring-actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .profession-grid {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+        .profession-card {
+          padding: 1.15rem 1rem 1rem;
+        }
+        .profession-icon {
+          font-size: 1.75rem;
+        }
+        .profession-card h3 {
+          font-size: 1.05rem;
+        }
+        .profession-card .profession-footer {
+          flex-wrap: wrap;
+        }
+        .profession-card .profession-footer .btn {
+          margin-left: 0;
+          margin-top: 0.4rem;
+          width: 100%;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .page-learning p {
+          font-size: 0.95rem;
+        }
+        .learning-nav .cards-grid {
+          grid-template-columns: 1fr;
+        }
+        .training-footer {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+
+      @media (max-width: 420px) {
+        .profession-card .profession-desc {
+          font-size: 0.88rem;
+        }
+        .profession-card ul.competency-list li {
+          font-size: 0.84rem;
+        }
+        .profession-card .profession-footer .level-tag {
+          font-size: 0.68rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="page-learning">
+    <header class="site-header">
+      <div class="container header-container">
+        <div class="logo">
+          <a href="home.html">
+            <img
+              src="assets/enec-logo.webp"
+              alt="Ethiopian Nuclear Energy Commission"
+            />
+            <span class="logo-text"> </span>
+          </a>
+        </div>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li>
+              <a href="Knowledge Repository.html">Knowledge Repository</a>
+            </li>
+            <li><a href="lessons.html">Lessons Learned</a></li>
+            <li>
+              <a href="learning.html" class="active"
+                >Learning &amp; Competence</a
+              >
+            </li>
+            <li><a href="communities.html">Communities</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="about.html">About KMS</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-utility">
+          <div class="search-box">
+            <form action="search.html" method="get">
+              <input
+                type="search"
+                name="q"
+                placeholder="Search knowledge..."
+                aria-label="Search"
+              />
+              <button type="submit">Search</button>
+            </form>
+          </div>
+          <div class="language-switcher">
+            <a href="?lang=en" class="lang-btn active" data-lang="en">EN</a>
+            <a href="?lang=am" class="lang-btn" data-lang="am">አማ</a>
+          </div>
+          <div class="user-menu" id="user-menu"></div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="home.html">Home</a></li>
+            <li aria-current="page">Learning &amp; Competence</li>
+          </ol>
+        </nav>
+
+        <div class="page-header">
+          <h1>Learning &amp; Competence</h1>
+          <p class="page-description">
+            Access training materials, competency frameworks, mentoring
+            opportunities, and professional development resources to build
+            nuclear competence.
+          </p>
+        </div>
+
+        <!-- QUICK NAVIGATION CARDS -->
+        <section class="learning-nav">
+          <div class="cards-grid">
+            <a
+              href="learning-detail.html?section=catalogue"
+              class="card card-link"
+            >
+              <div class="card-icon">📋</div>
+              <h3>Training Catalogue</h3>
+              <p>Browse available courses and training programmes.</p>
+            </a>
+            <a
+              href="learning-detail.html?section=elearning"
+              class="card card-link"
+            >
+              <div class="card-icon">💻</div>
+              <h3>E-Learning</h3>
+              <p>Self-paced online courses and learning materials.</p>
+            </a>
+            <a
+              href="learning-detail.html?section=competency"
+              class="card card-link"
+            >
+              <div class="card-icon">🎯</div>
+              <h3>Competency Frameworks</h3>
+              <p>Role-based competency requirements and development paths.</p>
+            </a>
+            <a
+              href="learning-detail.html?section=mentoring"
+              class="card card-link"
+            >
+              <div class="card-icon">🤝</div>
+              <h3>Mentoring &amp; Coaching</h3>
+              <p>
+                Connect with experienced professionals for knowledge transfer.
+              </p>
+            </a>
+          </div>
+        </section>
+
+        <!-- LEARNING PATHS BY PROFESSION -->
+        <section class="learning-section" id="professions">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Learning Paths by Profession</h2>
+              <p class="page-description" style="margin-bottom: 0.5rem">
+                Structured competency development aligned with IAEA frameworks
+                for each nuclear profession. Each path defines the knowledge,
+                skills, and behaviours required at basic, intermediate, and
+                advanced levels.
+              </p>
+            </div>
+            <a href="#professions" class="view-all">Explore all paths →</a>
+          </div>
+
+          <div class="profession-grid" id="profession-grid">
+            <p class="loading-note">Loading professions…</p>
+          </div>
+        </section>
+
+        <!-- TRAINING CATALOGUE -->
+        <section class="learning-section" id="catalogue">
+          <div class="section-header">
+            <h2 class="section-title">Training Catalogue</h2>
+            <a href="learning-detail.html?section=catalogue" class="view-all"
+              >View full catalogue →</a
+            >
+          </div>
+
+          <div class="training-list" id="training-preview">
+            <p class="loading-note" style="color: #64748b">Loading courses…</p>
+          </div>
+        </section>
+
+        <!-- E-LEARNING -->
+        <section class="learning-section" id="elearning">
+          <div class="section-header">
+            <h2 class="section-title">E-Learning Resources</h2>
+            <a href="learning-detail.html?section=elearning" class="view-all"
+              >View all →</a
+            >
+          </div>
+
+          <div class="cards-grid cards-3" id="elearning-preview">
+            <p class="loading-note" style="grid-column: 1/-1; color: #64748b">
+              Loading e-learning…
+            </p>
+          </div>
+        </section>
+
+        <!-- COMPETENCY FRAMEWORKS -->
+        <section class="learning-section" id="competency">
+          <div class="section-header">
+            <h2 class="section-title">Competency Frameworks</h2>
+            <a href="learning-detail.html?section=competency" class="view-all"
+              >View all frameworks →</a
+            >
+          </div>
+          <p>
+            Competency frameworks define the knowledge, skills, and attitudes
+            required for key roles within ENEC. Use these frameworks to guide
+            personal development and training planning.
+          </p>
+          <div class="cards-grid cards-3" id="competency-preview">
+            <p class="loading-note" style="grid-column: 1/-1; color: #64748b">
+              Loading frameworks…
+            </p>
+          </div>
+        </section>
+
+        <!-- MENTORING -->
+        <section class="learning-section" id="mentoring">
+          <div class="section-header">
+            <h2 class="section-title">Mentoring &amp; Coaching</h2>
+            <a href="learning-detail.html?section=mentoring" class="view-all"
+              >View all mentors →</a
+            >
+          </div>
+          <p>
+            Mentoring supports the transfer of tacit knowledge from experienced
+            professionals to newer staff. ENEC encourages structured mentoring
+            relationships as part of knowledge management and capacity building.
+          </p>
+          <div class="mentoring-actions">
+            <a
+              href="learning-detail.html?section=mentoring"
+              class="btn btn-primary"
+              >Request a Mentor</a
+            >
+            <a
+              href="learning-detail.html?section=mentoring"
+              class="btn btn-outline"
+              >Become a Mentor</a
+            >
+            <a
+              href="learning-detail.html?section=mentoring"
+              class="btn btn-outline"
+              >Mentoring Guidelines</a
+            >
+          </div>
+        </section>
+
+        <!-- EXTERNAL OPPORTUNITIES -->
+        <section class="learning-section" id="external">
+          <div class="section-header">
+            <h2 class="section-title">External Opportunities</h2>
+          </div>
+          <ul class="opportunity-list">
+            <li>
+              <strong>IAEA Fellowship Programmes</strong> —
+              <a href="#">View current opportunities</a>
+            </li>
+            <li>
+              <strong>Harbin Engineering University Scholarships</strong> —
+              <a href="#">Details and application</a>
+            </li>
+            <li>
+              <strong>Partner Training Courses (Rosatom and others)</strong> —
+              <a href="#">Upcoming programmes</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h3>ENEC KMS</h3>
+            <p>
+              Supporting the safe and peaceful development of nuclear science
+              and technology in Ethiopia.
+            </p>
+          </div>
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul>
+              <li>
+                <a href="Knowledge Repository.html">Knowledge Repository</a>
+              </li>
+              <li><a href="lessons.html">Lessons Learned</a></li>
+              <li><a href="learning.html">Learning &amp; Competence</a></li>
+              <li><a href="about.html">About the KMS</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Resources</h4>
+            <ul>
+              <li>
+                <a href="https://enec.gov.et" target="_blank" rel="noopener"
+                  >Main ENEC Website</a
+                >
+              </li>
+              <li>
+                <a href="https://www.iaea.org" target="_blank" rel="noopener"
+                  >IAEA</a
+                >
+              </li>
+              <!-- FIXED: was /help → help.html -->
+              <li><a href="help.html">Help &amp; Support</a></li>
+              <!-- FIXED: was /contact → contact.html -->
+              <li><a href="contact.html">Contact KM Team</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <p>
+              Ethiopian Nuclear Energy Commission<br />
+              Addis Ababa, Ethiopia<br />
+              <a href="mailto:enecinfo@enec.gov.et">enecinfo@enec.gov.et</a>
+            </p>
+
+            <div class="footer-social">
+              <h4>Follow Us</h4>
+              <ul class="social-links">
+                <!-- Facebook -->
+                <li>
+                  <a
+                    href="https://www.facebook.com/EthiopianNuclearEnergy/"
+                    class="social-facebook"
+                    aria-label="Facebook"
+                    title="Facebook"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.45 2.89h-2.33v6.99A10 10 0 0 0 22 12z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+
+                <!-- X (Twitter) — FIXED: direct link, no facebook redirect wrapper -->
+                <li>
+                  <a
+                    href="https://x.com/EthiopianNuclearEnergy"
+                    class="social-x"
+                    aria-label="X (Twitter)"
+                    title="X (Twitter)"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M18.244 2H21.5l-7.19 8.21L22.5 22h-6.586l-5.16-6.72L4.808 22H1.55l7.694-8.786L1.5 2h6.754l4.658 6.148L18.244 2zm-1.157 18h1.83L7.03 4H5.06l12.027 16z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+
+                <!-- LinkedIn -->
+                <li>
+                  <a
+                    href="https://et.linkedin.com/in/ethiopian-nuclear-energy-commission-11b47b3ba"
+                    class="social-linkedin"
+                    aria-label="LinkedIn"
+                    title="LinkedIn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.44-2.13 2.94v5.67H9.36V9h3.4v1.56h.05a3.73 3.73 0 0 1 3.36-1.85c3.59 0 4.25 2.36 4.25 5.43v6.31zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+
+                <!-- WhatsApp — replace number with your real one -->
+                <li>
+                  <a
+                    href="https://wa.me/251911234567"
+                    class="social-whatsapp"
+                    aria-label="WhatsApp"
+                    title="WhatsApp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M17.47 14.38c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.76-1.66-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.06 2.87 1.21 3.07.15.2 2.09 3.19 5.07 4.47.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35zM12 22a9.94 9.94 0 0 1-5.07-1.39L2 22l1.44-4.83A9.94 9.94 0 0 1 2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm0-18.4c-4.63 0-8.4 3.77-8.4 8.4 0 1.61.45 3.11 1.24 4.39l-.81 2.71 2.82-.74a8.37 8.37 0 0 0 5.15 1.76c4.63 0 8.4-3.77 8.4-8.4s-3.77-8.4-8.4-8.4z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+
+                <!-- Telegram -->
+                <li>
+                  <a
+                    href="https://t.me/ENEC_Ethiopia"
+                    class="social-telegram"
+                    aria-label="Telegram"
+                    title="Telegram"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+
+                <!-- TikTok -->
+                <li>
+                  <a
+                    href="https://www.tiktok.com/@enec.et?is_from_webapp=1&sender_device=pc"
+                    class="social-tiktok"
+                    aria-label="TikTok"
+                    title="TikTok"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path
+                        d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"
+                      />
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>
+            &copy; 2026 Ethiopian Nuclear Energy Commission. All rights
+            reserved.
+          </p>
+          <div class="footer-links">
+            <!-- FIXED: was /privacy, /terms, /accessibility -->
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Use</a>
+            <a href="accessibility.html">Accessibility</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/i18n.js"></script>
+
+    <script>
+      /* ============================================================
+         Load all live data for the Learning page from the API.
+         Each block is independent so a failure in one never breaks
+         the others.
+         ============================================================ */
+      document.addEventListener("DOMContentLoaded", function () {
+        const API_BASE = "http://localhost:3000";
+
+        /* -------- 1. Profession cards -------- */
+        (async function loadProfessions() {
+          const grid = document.getElementById("profession-grid");
+          if (!grid) return;
+          try {
+            const res = await fetch(API_BASE + "/api/professions");
+            if (!res.ok) throw new Error("HTTP " + res.status);
+            const list = await res.json();
+            if (!Array.isArray(list) || list.length === 0) {
+              grid.innerHTML =
+                '<p class="loading-note">No professions available.</p>';
+              return;
+            }
+            grid.innerHTML = list
+              .map(function (p) {
+                const bullets = (p.competencies || [])
+                  .map((c) => "<li>" + c + "</li>")
+                  .join("");
+                return `
+                  <a class="profession-card" href="learning-path.html?profession=${encodeURIComponent(
+                    p.Slug,
+                  )}" aria-label="Open learning path for ${p.Title}">
+                    <div class="profession-icon">${p.Icon || "🎯"}</div>
+                    <h3>${p.Title}</h3>
+                    <p class="profession-desc">${p.ShortDesc || ""}</p>
+                    <div class="competency-label">Core Competencies</div>
+                    <ul class="competency-list">${bullets}</ul>
+                    <div class="profession-footer">
+                      <span class="level-tag">${p.Level || ""}</span>
+                      <span class="btn btn-outline btn-sm">View Path</span>
+                    </div>
+                  </a>`;
+              })
+              .join("");
+            if (window.ENEC_i18n) window.ENEC_i18n.apply();
+          } catch (err) {
+            console.error("Professions failed:", err);
+            grid.innerHTML =
+              '<p class="loading-note" style="color:#c62828;">Cannot load professions. Make sure the API is running on port 3000.</p>';
+          }
+        })();
+
+        /* -------- 2. Training catalogue preview (3 latest courses) -------- */
+        (async function loadTraining() {
+          const container = document.getElementById("training-preview");
+          if (!container) return;
+          try {
+            const res = await fetch(API_BASE + "/api/courses?limit=3");
+            if (!res.ok) throw new Error("HTTP " + res.status);
+            const courses = await res.json();
+            if (!Array.isArray(courses) || courses.length === 0) {
+              container.innerHTML =
+                '<p class="loading-note">No courses available.</p>';
+              return;
+            }
+            container.innerHTML = courses
+              .map(function (c) {
+                const isOpen = /open/i.test(c.Status || "");
+                const statusBadge = isOpen
+                  ? '<span class="badge badge-open">Open for Registration</span>'
+                  : '<span class="badge">Upcoming</span>';
+                return `
+                  <article class="training-card">
+                    <div class="training-meta">
+                      <span class="badge">${c.Mode || ""}</span>
+                      ${statusBadge}
+                    </div>
+                    <h3 class="training-title">
+                      <a href="learning-detail.html?section=catalogue">${c.Title}</a>
+                    </h3>
+                    <p class="training-summary">${c.Description || ""}</p>
+                    <div class="training-footer">
+                      <span>📅 ${c.StartDate || ""}</span>
+                      <span>📍 ${c.Location || ""}</span>
+                      <span>⏱ ${c.Duration || ""}</span>
+                      <a href="learning-detail.html?section=catalogue" class="btn btn-sm btn-primary">View Details</a>
+                    </div>
+                  </article>`;
+              })
+              .join("");
+            if (window.ENEC_i18n) window.ENEC_i18n.apply();
+          } catch (err) {
+            console.error("Training failed:", err);
+            container.innerHTML =
+              '<p class="loading-note" style="color:#c62828;">Cannot load courses.</p>';
+          }
+        })();
+
+        /* -------- 3. E-learning preview -------- */
+        (async function loadElearning() {
+          const container = document.getElementById("elearning-preview");
+          if (!container) return;
+          try {
+            const res = await fetch(
+              API_BASE + "/api/courses?provider=IAEA&limit=3",
+            );
+            if (!res.ok) throw new Error("HTTP " + res.status);
+            const items = await res.json();
+            if (!Array.isArray(items) || items.length === 0) {
+              container.innerHTML =
+                '<p class="loading-note" style="grid-column:1/-1;">No e-learning modules yet.</p>';
+              return;
+            }
+            container.innerHTML = items
+              .map(
+                (m) => `
+                  <a href="learning-detail.html?section=elearning" class="card">
+                    <h3>${m.Title}</h3>
+                    <p>${m.Description || ""}</p>
+                    <span class="btn btn-outline btn-sm">Open Module</span>
+                  </a>`,
+              )
+              .join("");
+            if (window.ENEC_i18n) window.ENEC_i18n.apply();
+          } catch (err) {
+            console.error("E-learning failed:", err);
+            container.innerHTML =
+              '<p class="loading-note" style="grid-column:1/-1;color:#c62828;">Cannot load e-learning.</p>';
+          }
+        })();
+
+        /* -------- 4. Competency frameworks preview -------- */
+        (async function loadFrameworks() {
+          const container = document.getElementById("competency-preview");
+          if (!container) return;
+          try {
+            const res = await fetch(API_BASE + "/api/frameworks?limit=3");
+            if (!res.ok) throw new Error("HTTP " + res.status);
+            const list = await res.json();
+            if (!Array.isArray(list) || list.length === 0) {
+              container.innerHTML =
+                '<p class="loading-note" style="grid-column:1/-1;">No frameworks yet.</p>';
+              return;
+            }
+            container.innerHTML = list
+              .map(
+                (f) => `
+                  <a href="learning-detail.html?section=competency" class="card">
+                    <h3>${f.Title}</h3>
+                    <p>${f.Description || ""}</p>
+                    <span class="btn btn-outline btn-sm">View Framework</span>
+                  </a>`,
+              )
+              .join("");
+            if (window.ENEC_i18n) window.ENEC_i18n.apply();
+          } catch (err) {
+            console.error("Frameworks failed:", err);
+            container.innerHTML =
+              '<p class="loading-note" style="grid-column:1/-1;color:#c62828;">Cannot load frameworks.</p>';
+          }
+        })();
+      });
+    </script>
+  </body>
+</html>

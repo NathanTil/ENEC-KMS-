@@ -1,0 +1,1327 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Submit Knowledge Asset | ENEC KMS</title>
+    <link rel="icon" href="assets/favicon.jpg" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <style>
+      /* ============================================================
+       PAGE-SPECIFIC STYLES for submit-document.html
+       ============================================================ */
+      .page-submit-document {
+        font-family: "Segoe UI", Roboto, system-ui, sans-serif;
+        color: #1e293b;
+        line-height: 1.7;
+      }
+
+      .page-submit-document .page-header {
+        margin-bottom: 1.5rem;
+      }
+      .page-submit-document h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #0b2b4a;
+        margin: 0 0 0.5rem 0;
+        letter-spacing: -0.02em;
+      }
+      .page-submit-document .page-description {
+        font-size: 1.05rem;
+        color: #475569;
+        max-width: 70ch;
+        margin: 0;
+      }
+
+      .page-submit-document .form-wrapper {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 1.75rem 2rem;
+        margin-bottom: 2.5rem;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+      }
+
+      .page-submit-document .form-section {
+        border-top: 1px solid #eef2f6;
+        padding-top: 1.5rem;
+        margin-top: 1.5rem;
+      }
+      .page-submit-document .form-section:first-of-type {
+        border-top: none;
+        padding-top: 0;
+        margin-top: 0;
+      }
+      .page-submit-document .form-section-title {
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #1a6b8a;
+        margin: 0 0 1rem 0;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px dashed #e2e8f0;
+      }
+
+      .page-submit-document .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+      @media (max-width: 640px) {
+        .page-submit-document .form-row {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .page-submit-document .form-group {
+        margin-bottom: 1rem;
+      }
+      .page-submit-document label {
+        display: block;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #0b2b4a;
+        margin-bottom: 0.35rem;
+      }
+      .page-submit-document label.required::after {
+        content: " *";
+        color: #dc2626;
+        font-weight: 700;
+      }
+
+      .page-submit-document input[type="text"],
+      .page-submit-document input[type="url"],
+      .page-submit-document input[type="number"],
+      .page-submit-document input[type="date"],
+      .page-submit-document input[type="file"],
+      .page-submit-document select,
+      .page-submit-document textarea {
+        width: 100%;
+        padding: 0.65rem 0.85rem;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        font-size: 0.97rem;
+        font-family: inherit;
+        color: #1e293b;
+        background: #fff;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+      .page-submit-document input:focus,
+      .page-submit-document select:focus,
+      .page-submit-document textarea:focus {
+        outline: none;
+        border-color: #1a6b8a;
+        box-shadow: 0 0 0 3px rgba(26, 107, 138, 0.15);
+      }
+      .page-submit-document textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+      .page-submit-document .form-hint {
+        display: block;
+        font-size: 0.78rem;
+        color: #64748b;
+        margin-top: 0.3rem;
+        line-height: 1.5;
+      }
+
+      /* Knowledge type chooser — visually prominent radio cards */
+      .kt-chooser {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 0.75rem;
+        margin-bottom: 0.5rem;
+      }
+      .kt-option {
+        position: relative;
+        display: block;
+        cursor: pointer;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 0.9rem 1rem 0.9rem 2.6rem;
+        background: #fff;
+        transition:
+          border-color 0.15s,
+          background 0.15s,
+          transform 0.15s;
+        font-weight: 500;
+      }
+      .kt-option:hover {
+        border-color: #94a3b8;
+        transform: translateY(-1px);
+      }
+      .kt-option input[type="radio"] {
+        position: absolute;
+        left: 1rem;
+        top: 1.05rem;
+        width: 1rem;
+        height: 1rem;
+        accent-color: #1a6b8a;
+        cursor: pointer;
+      }
+      .kt-option strong {
+        display: block;
+        font-size: 0.95rem;
+        color: #0b2b4a;
+        margin-bottom: 0.15rem;
+      }
+      .kt-option small {
+        display: block;
+        font-size: 0.78rem;
+        color: #64748b;
+        font-weight: 400;
+        line-height: 1.4;
+      }
+      .kt-option:has(input[type="radio"]:checked) {
+        border-color: #1a6b8a;
+        background: #eef6fa;
+      }
+      .kt-option.kt-tacit:has(input[type="radio"]:checked) {
+        border-color: #d97706;
+        background: #fef3c7;
+      }
+      .kt-option.kt-implicit:has(input[type="radio"]:checked) {
+        border-color: #7c3aed;
+        background: #ede9fe;
+      }
+
+      /* Conditional groups */
+      .type-fields {
+        display: none;
+      }
+      .type-fields.active {
+        display: block;
+        animation: fadeSlide 0.2s ease;
+      }
+      @keyframes fadeSlide {
+        from {
+          opacity: 0;
+          transform: translateY(-6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Media preview */
+      .media-preview {
+        margin-top: 0.6rem;
+        border-radius: 10px;
+        overflow: hidden;
+        background: #0b2b4a;
+        display: none;
+        max-width: 480px;
+      }
+      .media-preview.active {
+        display: block;
+      }
+      .media-preview iframe,
+      .media-preview video,
+      .media-preview audio,
+      .media-preview img {
+        width: 100%;
+        display: block;
+        border: 0;
+      }
+      .media-preview iframe,
+      .media-preview video {
+        aspect-ratio: 16/9;
+        object-fit: cover;
+      }
+      .media-preview audio {
+        padding: 1rem;
+        background: #0b2b4a;
+      }
+      .media-preview img {
+        aspect-ratio: 16/9;
+        object-fit: cover;
+      }
+
+      /* Notice banner */
+      .form-notice {
+        background: #eef6fa;
+        border-left: 4px solid #1a6b8a;
+        color: #0b2b4a;
+        padding: 0.75rem 1rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+      }
+      .form-notice .notice-icon {
+        flex-shrink: 0;
+        font-size: 1.1rem;
+        line-height: 1.3;
+      }
+
+      /* File upload box */
+      .file-drop {
+        border: 2px dashed #cbd5e1;
+        border-radius: 10px;
+        padding: 1.25rem 1.5rem;
+        text-align: center;
+        background: #f8fafc;
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+        cursor: pointer;
+        display: block;
+        position: relative;
+      }
+      .file-drop:hover {
+        border-color: #1a6b8a;
+        background: #eef6fa;
+      }
+      .file-drop input[type="file"] {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+      }
+      .file-drop .file-drop-icon {
+        font-size: 1.6rem;
+        color: #1a6b8a;
+        display: block;
+        margin-bottom: 0.4rem;
+      }
+      .file-drop .file-drop-label {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #0b2b4a;
+        display: block;
+      }
+      .file-drop .file-drop-hint {
+        font-size: 0.8rem;
+        color: #64748b;
+        display: block;
+        margin-top: 0.25rem;
+      }
+      .file-drop .file-selected {
+        display: block;
+        margin-top: 0.6rem;
+        font-size: 0.85rem;
+        color: #166534;
+        font-weight: 600;
+      }
+
+      /* Actions */
+      .page-submit-document .form-actions {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #eef2f6;
+      }
+      .page-submit-document .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+        padding: 0.7rem 1.6rem;
+        border-radius: 8px;
+        font-size: 0.98rem;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition:
+          background 0.2s,
+          transform 0.15s,
+          border-color 0.2s;
+        font-family: inherit;
+      }
+      .page-submit-document .btn-primary {
+        background: #1a6b8a;
+        color: #ffffff;
+        border-color: #1a6b8a;
+      }
+      .page-submit-document .btn-primary:hover {
+        background: #145a77;
+        border-color: #145a77;
+        transform: translateY(-1px);
+      }
+      .page-submit-document .btn-outline {
+        background: transparent;
+        color: #1a6b8a;
+        border-color: #1a6b8a;
+      }
+      .page-submit-document .btn-outline:hover {
+        background: #eef6fa;
+      }
+      .page-submit-document .btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+      .page-submit-document .btn-lg {
+        padding: 0.85rem 1.75rem;
+        font-size: 1rem;
+      }
+
+      /* Footer cleanup */
+      .site-header ul,
+      .site-footer ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .site-header ul li,
+      .site-footer ul li {
+        padding-left: 0;
+        margin-bottom: 0;
+      }
+      .site-header ul li::before,
+      .site-footer ul li::before {
+        display: none !important;
+      }
+      .site-footer p {
+        margin-bottom: 0.35rem;
+        font-size: 0.95rem;
+        color: inherit;
+      }
+    </style>
+  </head>
+
+  <body class="page-submit-document">
+    <!-- HEADER -->
+    <header class="site-header">
+      <div class="container header-container">
+        <div class="logo">
+          <a href="home.html">
+            <img
+              src="assets/enec-logo.webp"
+              alt="Ethiopian Nuclear Energy Commission"
+            />
+            <span class="logo-text"></span>
+          </a>
+        </div>
+
+        <nav class="main-nav">
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li>
+              <a href="Knowledge Repository.html" class="active"
+                >Knowledge Repository</a
+              >
+            </li>
+            <li><a href="lessons.html">Lessons Learned</a></li>
+            <li><a href="learning.html">Learning &amp; Competence</a></li>
+            <li><a href="communities.html">Communities</a></li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="about.html">About KMS</a></li>
+          </ul>
+        </nav>
+
+        <div class="user-menu" id="user-menu"></div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      <div class="container">
+        <nav class="breadcrumb">
+          <ol>
+            <li><a href="home.html">Home</a></li>
+            <li>
+              <a href="Knowledge Repository.html">Knowledge Repository</a>
+            </li>
+            <li aria-current="page">Submit Knowledge Asset</li>
+          </ol>
+        </nav>
+
+        <div class="page-header">
+          <h1 id="form-title">Submit Knowledge Asset</h1>
+          <p class="page-description" id="form-description">
+            Register a new knowledge asset into the ENEC Knowledge Repository —
+            documents, interviews, videos, photos, audio recordings or external
+            articles.
+          </p>
+        </div>
+
+        <div class="form-wrapper">
+          <form id="document-form" novalidate>
+            <!-- ============================================================
+               KNOWLEDGE TYPE — main classification
+               ============================================================ -->
+            <div class="form-section">
+              <h2 class="form-section-title">1 · Knowledge Type</h2>
+              <div class="form-notice">
+                <span class="notice-icon">💡</span>
+                <span>
+                  Choose the type of knowledge you're submitting. This
+                  determines how the asset is classified in the repository.
+                </span>
+              </div>
+              <div class="kt-chooser">
+                <label class="kt-option">
+                  <input
+                    type="radio"
+                    name="knowledgeType"
+                    value="Explicit"
+                    checked
+                  />
+                  <strong>Explicit</strong>
+                  <small
+                    >Documented knowledge — policies, reports, manuals,
+                    guidelines, procedures</small
+                  >
+                </label>
+                <label class="kt-option kt-tacit">
+                  <input type="radio" name="knowledgeType" value="Tacit" />
+                  <strong>Tacit</strong>
+                  <small
+                    >Experiential knowledge — interviews, videos, audio, expert
+                    demonstrations</small
+                  >
+                </label>
+                <label class="kt-option kt-implicit">
+                  <input type="radio" name="knowledgeType" value="Implicit" />
+                  <strong>Implicit</strong>
+                  <small
+                    >Embedded practice — case studies, best practices, photos of
+                    real work</small
+                  >
+                </label>
+              </div>
+            </div>
+
+            <!-- ============================================================
+               BASIC INFORMATION
+               ============================================================ -->
+            <div class="form-section">
+              <h2 class="form-section-title">2 · Basic Information</h2>
+
+              <div class="form-group">
+                <label for="title" class="required">Title</label>
+                <input
+                  type="text"
+                  id="title"
+                  required
+                  placeholder="Enter the full title"
+                />
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="reference">Reference Number</label>
+                  <input
+                    type="text"
+                    id="reference"
+                    placeholder="Example: ENEC-PUB-004"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="category" class="required">Category</label>
+                  <select id="category" required>
+                    <option value="">-- Select Category --</option>
+                    <option value="Nuclear Power Programme">
+                      Nuclear Power Programme
+                    </option>
+                    <option value="Policies & Regulatory Framework">
+                      Policies &amp; Regulatory Framework
+                    </option>
+                    <option value="Safety, Security & Safeguards">
+                      Safety, Security &amp; Safeguards
+                    </option>
+                    <option value="Non-Power Applications">
+                      Non-Power Applications
+                    </option>
+                    <option value="Human Resource Development">
+                      Human Resource Development
+                    </option>
+                    <option value="Technical Reports & Studies">
+                      Technical Reports &amp; Studies
+                    </option>
+                    <option value="Procedures & Work Instructions">
+                      Procedures &amp; Work Instructions
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="type" class="required"
+                    >Document / Asset Type</label
+                  >
+                  <select id="type" required>
+                    <option value="">-- Select Type --</option>
+                    <option value="Report">Report</option>
+                    <option value="Technical Report">Technical Report</option>
+                    <option value="Guideline">Guideline</option>
+                    <option value="Policy">Policy</option>
+                    <option value="Procedure">Procedure</option>
+                    <option value="Study">Study</option>
+                    <option value="Interview">Interview</option>
+                    <option value="Case Study">Case Study</option>
+                    <option value="Video">Video</option>
+                    <option value="Audio">Audio</option>
+                    <option value="Photo Essay">Photo Essay</option>
+                    <option value="Article">Article</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="author">Author / Department</label>
+                  <input
+                    type="text"
+                    id="author"
+                    placeholder="Example: Technical Directorate"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="abstract" class="required"
+                  >Abstract / Summary</label
+                >
+                <textarea
+                  id="abstract"
+                  rows="5"
+                  required
+                  placeholder="Write a short summary describing the asset..."
+                ></textarea>
+                <small class="form-hint">
+                  Aim for 2–4 sentences. This is what users see in listings.
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label for="keywords">Keywords</label>
+                <input
+                  type="text"
+                  id="keywords"
+                  placeholder="Separate keywords with commas"
+                />
+              </div>
+            </div>
+
+            <!-- ============================================================
+               MEDIA FORMAT
+               ============================================================ -->
+            <div class="form-section">
+              <h2 class="form-section-title">3 · Media Format</h2>
+
+              <div class="form-group">
+                <label for="mediaType" class="required">Media Format</label>
+                <select id="mediaType" required>
+                  <option value="Document">
+                    Document (PDF, DOCX, XLSX, PPTX)
+                  </option>
+                  <option value="Video">Video (YouTube, Vimeo or MP4)</option>
+                  <option value="Audio">
+                    Audio (MP3, WAV — interviews, lectures)
+                  </option>
+                  <option value="Image">Image / Photo</option>
+                  <option value="Article">External Article link</option>
+                  <option value="Embed">Generic Embed (iframe URL)</option>
+                </select>
+                <small class="form-hint">
+                  The fields below change based on the selected format.
+                </small>
+              </div>
+
+              <!-- YouTube / Vimeo -->
+              <div class="type-fields" data-type="Video">
+                <div class="form-group">
+                  <label for="embedId">YouTube / Vimeo Video ID</label>
+                  <input
+                    type="text"
+                    id="embedId"
+                    maxlength="50"
+                    placeholder="e.g. PIHMEVdqDMY  or  76979871"
+                  />
+                  <small class="form-hint">
+                    From <code>youtube.com/watch?v=<strong>ID</strong></code
+                    >, <code>youtu.be/<strong>ID</strong></code
+                    >, or <code>vimeo.com/<strong>ID</strong></code
+                    >. Leave empty if you'd rather upload an MP4 below.
+                  </small>
+                  <div class="media-preview" id="preview-video-embed">
+                    <iframe
+                      id="preview-video-embed-frame"
+                      title="Preview"
+                      allow="autoplay; encrypted-media; picture-in-picture"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="videoUrl">Or direct MP4 / WebM URL</label>
+                  <input
+                    type="text"
+                    id="videoUrl"
+                    placeholder="https://.../video.mp4"
+                  />
+                  <div class="media-preview" id="preview-video-url">
+                    <video
+                      id="preview-video-el"
+                      controls
+                      preload="metadata"
+                    ></video>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Audio -->
+              <div class="type-fields" data-type="Audio">
+                <div class="form-group">
+                  <label for="audioUrl">Audio file URL</label>
+                  <input
+                    type="text"
+                    id="audioUrl"
+                    placeholder="https://.../interview.mp3"
+                  />
+                  <small class="form-hint">
+                    Direct link to an .mp3, .wav or .ogg file.
+                  </small>
+                  <div class="media-preview" id="preview-audio">
+                    <audio
+                      id="preview-audio-el"
+                      controls
+                      preload="metadata"
+                    ></audio>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Image -->
+              <div class="type-fields" data-type="Image">
+                <div class="form-group">
+                  <label for="imageUrl">Image URL</label>
+                  <input
+                    type="text"
+                    id="imageUrl"
+                    placeholder="https://.../photo.jpg"
+                  />
+                  <small class="form-hint">
+                    Direct link to the photo (JPG, PNG, WEBP).
+                  </small>
+                  <div class="media-preview" id="preview-image">
+                    <img id="preview-image-el" alt="Preview" />
+                  </div>
+                </div>
+              </div>
+
+              <!-- Article -->
+              <div class="type-fields" data-type="Article">
+                <div class="form-group">
+                  <label for="articleUrl">Article URL</label>
+                  <input
+                    type="text"
+                    id="articleUrl"
+                    placeholder="https://www.ebc.et/… or https://www.fanabc.com/…"
+                  />
+                  <small class="form-hint">
+                    Opens externally. Use links from authorised outlets (EBC,
+                    ENA, Fana, Addis Standard, IAEA, etc.).
+                  </small>
+                </div>
+              </div>
+
+              <!-- Embed -->
+              <div class="type-fields" data-type="Embed">
+                <div class="form-group">
+                  <label for="embedUrl">Embed URL</label>
+                  <input
+                    type="text"
+                    id="embedUrl"
+                    placeholder="https://player.example.com/embed/..."
+                  />
+                  <small class="form-hint">
+                    Any URL that can safely load inside an &lt;iframe&gt;.
+                  </small>
+                </div>
+              </div>
+
+              <!-- Document — file upload -->
+              <div class="type-fields active" data-type="Document">
+                <div class="form-group">
+                  <label>Document File</label>
+                  <label class="file-drop" for="file">
+                    <input
+                      type="file"
+                      id="file"
+                      name="file"
+                      accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv,.jpg,.jpeg,.png"
+                    />
+                    <span class="file-drop-icon">📎</span>
+                    <span class="file-drop-label">Click to choose a file</span>
+                    <span class="file-drop-hint">
+                      Allowed: PDF, Word, Excel, PowerPoint, TXT, CSV, JPG, PNG
+                    </span>
+                    <span class="file-selected" id="file-selected"></span>
+                  </label>
+                  <small class="form-hint" id="file-hint">
+                    Leave empty when editing to keep the existing file.
+                  </small>
+                </div>
+              </div>
+
+              <!-- Common metadata -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="thumbnailUrl">Thumbnail URL (optional)</label>
+                  <input
+                    type="text"
+                    id="thumbnailUrl"
+                    placeholder="https://.../thumb.jpg"
+                  />
+                  <small class="form-hint"
+                    >Overrides auto thumbnail (mostly for Vimeo /
+                    articles).</small
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label for="duration">Duration (optional)</label>
+                  <input type="text" id="duration" placeholder="e.g. 18:42" />
+                  <small class="form-hint"
+                    >Only for video / audio assets.</small
+                  >
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="interviewee"
+                    >Interviewee / Speaker (optional)</label
+                  >
+                  <input
+                    type="text"
+                    id="interviewee"
+                    placeholder="e.g. Dr. Yohannes A."
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="source">Source / Organisation (optional)</label>
+                  <input
+                    type="text"
+                    id="source"
+                    placeholder="ENEC, IAEA, EBC, ENA, Fana…"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- ============================================================
+               PUBLICATION METADATA
+               ============================================================ -->
+            <div class="form-section">
+              <h2 class="form-section-title">4 · Publication &amp; Access</h2>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="criticality" class="required"
+                    >Knowledge Criticality</label
+                  >
+                  <select id="criticality" required>
+                    <option value="Critical">Critical</option>
+                    <option value="Significant" selected>Significant</option>
+                    <option value="Useful">Useful</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="access" class="required">Access Level</label>
+                  <select id="access" required>
+                    <option value="Public" selected>Public</option>
+                    <option value="Restricted">Restricted</option>
+                    <option value="Confidential">Confidential</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="publishedAt">Published Date</label>
+                <input type="date" id="publishedAt" />
+                <small class="form-hint"
+                  >Leave blank to use today's date.</small
+                >
+              </div>
+            </div>
+
+            <!-- ACTIONS -->
+            <div class="form-actions">
+              <button
+                type="submit"
+                class="btn btn-primary btn-lg"
+                id="submit-btn"
+              >
+                Submit Asset
+              </button>
+              <a href="Knowledge Repository.html" class="btn btn-outline btn-lg"
+                >Cancel</a
+              >
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-bottom">
+          <p>
+            &copy; 2026 Ethiopian Nuclear Energy Commission. All rights
+            reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/i18n.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        /* ---------- Auth check ---------- */
+        const currentUser = localStorage.getItem("enec_user");
+        if (!currentUser) {
+          alert("Please log in first.");
+          window.location.href = "login .html"; // ← fixed the "login .html" typo
+          return;
+        }
+
+        let user = {};
+        try {
+          user = JSON.parse(currentUser) || {};
+        } catch (_) {
+          user = {};
+        }
+
+        const form = document.getElementById("document-form");
+        const API_BASE = "http://localhost:3000";
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const editId = urlParams.get("edit");
+        let isEditMode = false;
+
+        /* ---------- Category map for API ---------- */
+        const categoryMap = {
+          "Nuclear Power Programme": 1,
+          "Policies & Regulatory Framework": 2,
+          "Safety, Security & Safeguards": 3,
+          "Non-Power Applications": 4,
+          "Human Resource Development": 5,
+          "Technical Reports & Studies": 6,
+          "Procedures & Work Instructions": 7,
+        };
+
+        /* ---------- Element shortcuts ---------- */
+        const el = (id) => document.getElementById(id);
+
+        const fTitle = el("title");
+        const fReference = el("reference");
+        const fCategory = el("category");
+        const fType = el("type");
+        const fAuthor = el("author");
+        const fAbstract = el("abstract");
+        const fKeywords = el("keywords");
+        const fMediaType = el("mediaType");
+        const fEmbedId = el("embedId");
+        const fVideoUrl = el("videoUrl");
+        const fAudioUrl = el("audioUrl");
+        const fImageUrl = el("imageUrl");
+        const fArticleUrl = el("articleUrl");
+        const fEmbedUrl = el("embedUrl");
+        const fThumbnailUrl = el("thumbnailUrl");
+        const fDuration = el("duration");
+        const fInterviewee = el("interviewee");
+        const fSource = el("source");
+        const fCriticality = el("criticality");
+        const fAccess = el("access");
+        const fPublishedAt = el("publishedAt");
+        const fFile = el("file");
+        const fFileHint = el("file-hint");
+        const fFileSelected = el("file-selected");
+        const fSubmitBtn = el("submit-btn");
+
+        /* ---------- Media type switcher ---------- */
+        function updateTypeFields() {
+          const type = fMediaType.value;
+          document.querySelectorAll(".type-fields").forEach(function (group) {
+            const types = (group.dataset.type || "").split(" ");
+            group.classList.toggle("active", types.includes(type));
+          });
+          updatePreviews();
+        }
+
+        /* ---------- YouTube / Vimeo ID extractor ---------- */
+        function extractEmbedId(input) {
+          const v = String(input || "").trim();
+          if (!v) return "";
+          if (/^[A-Za-z0-9_-]{6,20}$/.test(v)) return v;
+          let m = v.match(/youtu\.be\/([A-Za-z0-9_-]{11})/);
+          if (m) return m[1];
+          m = v.match(/[?&]v=([A-Za-z0-9_-]{11})/);
+          if (m) return m[1];
+          m = v.match(/\/embed\/([A-Za-z0-9_-]{11})/);
+          if (m) return m[1];
+          m = v.match(/vimeo\.com\/(?:video\/)?(\d{6,12})/);
+          if (m) return m[1];
+          return v;
+        }
+
+        /* ---------- Live previews ---------- */
+        function updatePreviews() {
+          const type = fMediaType.value;
+
+          // YouTube / Vimeo
+          const embedWrap = el("preview-video-embed");
+          const embedFrame = el("preview-video-embed-frame");
+          if (type === "Video") {
+            const id = extractEmbedId(fEmbedId.value);
+            if (id && id.length >= 6) {
+              // Guess provider — a numeric-only ID is Vimeo, otherwise YouTube
+              const isVimeo = /^\d+$/.test(id);
+              embedFrame.src = isVimeo
+                ? "https://player.vimeo.com/video/" + id
+                : "https://www.youtube.com/embed/" + id;
+              embedWrap.classList.add("active");
+            } else {
+              embedFrame.src = "";
+              embedWrap.classList.remove("active");
+            }
+          }
+
+          // Direct MP4
+          const videoWrap = el("preview-video-url");
+          const videoEl = el("preview-video-el");
+          if (type === "Video") {
+            if (fVideoUrl.value.trim()) {
+              videoEl.src = fVideoUrl.value.trim();
+              videoWrap.classList.add("active");
+            } else {
+              videoEl.removeAttribute("src");
+              videoWrap.classList.remove("active");
+            }
+          }
+
+          // Audio
+          const audioWrap = el("preview-audio");
+          const audioEl = el("preview-audio-el");
+          if (type === "Audio") {
+            if (fAudioUrl.value.trim()) {
+              audioEl.src = fAudioUrl.value.trim();
+              audioWrap.classList.add("active");
+            } else {
+              audioEl.removeAttribute("src");
+              audioWrap.classList.remove("active");
+            }
+          }
+
+          // Image
+          const imgWrap = el("preview-image");
+          const imgEl = el("preview-image-el");
+          if (type === "Image") {
+            if (fImageUrl.value.trim()) {
+              imgEl.src = fImageUrl.value.trim();
+              imgWrap.classList.add("active");
+            } else {
+              imgEl.removeAttribute("src");
+              imgWrap.classList.remove("active");
+            }
+          }
+        }
+
+        /* ---------- File picker feedback ---------- */
+        if (fFile) {
+          fFile.addEventListener("change", function () {
+            if (this.files && this.files.length) {
+              fFileSelected.textContent = "Selected: " + this.files[0].name;
+            } else {
+              fFileSelected.textContent = "";
+            }
+          });
+        }
+
+        /* ---------- Wire up preview inputs ---------- */
+        fMediaType.addEventListener("change", updateTypeFields);
+        [fEmbedId, fVideoUrl, fAudioUrl, fImageUrl].forEach(function (input) {
+          if (!input) return;
+          input.addEventListener("input", updatePreviews);
+        });
+        fEmbedId.addEventListener("blur", function () {
+          const id = extractEmbedId(fEmbedId.value);
+          if (id) fEmbedId.value = id;
+        });
+
+        /* ---------- Load record for edit ---------- */
+        async function loadForEdit() {
+          if (!editId) {
+            // Default publish date to today
+            if (fPublishedAt && !fPublishedAt.value) {
+              fPublishedAt.value = new Date().toISOString().slice(0, 10);
+            }
+            return;
+          }
+
+          try {
+            const res = await fetch(API_BASE + "/api/documents/" + editId);
+            if (!res.ok) throw new Error("Document not found");
+            const doc = await res.json();
+            isEditMode = true;
+
+            el("form-title").textContent = "Edit Knowledge Asset";
+            el("form-description").textContent =
+              "Update the details of this knowledge asset. Changes take effect immediately.";
+
+            // Basic
+            fTitle.value = doc.Title || "";
+            fReference.value = doc.ReferenceNo || "";
+            fCategory.value = doc.CategoryName || "";
+            fType.value = doc.DocumentType || "";
+            fAuthor.value = doc.Author || doc.AuthorName || "";
+            fAbstract.value = doc.Abstract || "";
+            fKeywords.value = doc.Keywords || "";
+
+            // Knowledge type
+            const kt = doc.KnowledgeType || "Explicit";
+            const ktRadio = document.querySelector(
+              'input[name="knowledgeType"][value="' + kt + '"]',
+            );
+            if (ktRadio) ktRadio.checked = true;
+
+            // Media type
+            fMediaType.value = doc.MediaType || "Document";
+
+            // Media-specific
+            fEmbedId.value = doc.EmbedId || "";
+            fVideoUrl.value =
+              doc.MediaType === "Video" && !doc.EmbedId
+                ? doc.MediaUrl || ""
+                : "";
+            fAudioUrl.value =
+              doc.MediaType === "Audio" ? doc.MediaUrl || "" : "";
+            fImageUrl.value =
+              doc.MediaType === "Image" ? doc.MediaUrl || "" : "";
+            fArticleUrl.value =
+              doc.MediaType === "Article" ? doc.MediaUrl || "" : "";
+            fEmbedUrl.value =
+              doc.MediaType === "Embed" ? doc.MediaUrl || "" : "";
+
+            fThumbnailUrl.value = doc.ThumbnailUrl || "";
+            fDuration.value = doc.Duration || "";
+            fInterviewee.value = doc.Interviewee || "";
+            fSource.value = doc.Source || "";
+
+            // Publication
+            fCriticality.value = doc.Criticality || "Significant";
+            fAccess.value = doc.AccessLevel || "Public";
+            fPublishedAt.value = doc.PublishedAt
+              ? String(doc.PublishedAt).slice(0, 10)
+              : "";
+
+            // Existing file hint
+            const existingFile = doc.FilePath || doc.filePath || "";
+            if (existingFile && fFileHint) {
+              fFileHint.textContent =
+                "Current file: " +
+                existingFile +
+                " — choose a new file only to replace it.";
+            }
+
+            fSubmitBtn.textContent = "Update Asset";
+
+            // Apply field visibility + previews
+            updateTypeFields();
+          } catch (err) {
+            console.error(err);
+            alert("Cannot load asset for edit.");
+            window.location.href = "Knowledge Repository.html";
+          }
+        }
+
+        /* ---------- Submit ---------- */
+        form.addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const title = fTitle.value.trim();
+          const reference = fReference.value.trim();
+          const categoryName = fCategory.value;
+          const type = fType.value;
+          const abstract = fAbstract.value.trim();
+          const author = fAuthor.value.trim();
+          const keywords = fKeywords.value.trim();
+          const knowledgeType =
+            document.querySelector('input[name="knowledgeType"]:checked')
+              ?.value || "Explicit";
+          const mediaType = fMediaType.value;
+          const criticality = fCriticality.value || "Significant";
+          const access = fAccess.value || "Public";
+          const thumbnailUrl = fThumbnailUrl.value.trim();
+          const duration = fDuration.value.trim();
+          const interviewee = fInterviewee.value.trim();
+          const source = fSource.value.trim();
+          const publishedAt =
+            fPublishedAt.value || new Date().toISOString().slice(0, 10);
+
+          /* ---- Required field checks ---- */
+          if (!title || !categoryName || !type || !abstract) {
+            alert(
+              "Please fill all required fields (title, category, type, abstract).",
+            );
+            return;
+          }
+
+          /* ---- Media-specific checks ---- */
+          let mediaUrl = "";
+          let embedId = "";
+          let hasMedia = false;
+
+          if (mediaType === "Document") {
+            // File required only on create
+            if (
+              !isEditMode &&
+              (!fFile || !fFile.files || !fFile.files.length)
+            ) {
+              alert("Please attach the document file before submitting.");
+              return;
+            }
+            hasMedia = true;
+          } else if (mediaType === "Video") {
+            embedId = extractEmbedId(fEmbedId.value);
+            mediaUrl = fVideoUrl.value.trim();
+            if (!embedId && !mediaUrl) {
+              alert(
+                "Please provide either a YouTube/Vimeo ID or a direct video URL.",
+              );
+              return;
+            }
+            hasMedia = true;
+          } else if (mediaType === "Audio") {
+            mediaUrl = fAudioUrl.value.trim();
+            if (!mediaUrl) {
+              alert("Please provide the audio file URL.");
+              return;
+            }
+            hasMedia = true;
+          } else if (mediaType === "Image") {
+            mediaUrl = fImageUrl.value.trim();
+            if (!mediaUrl) {
+              alert("Please provide the image URL.");
+              return;
+            }
+            hasMedia = true;
+          } else if (mediaType === "Article") {
+            mediaUrl = fArticleUrl.value.trim();
+            if (!mediaUrl) {
+              alert("Please provide the article URL.");
+              return;
+            }
+            hasMedia = true;
+          } else if (mediaType === "Embed") {
+            mediaUrl = fEmbedUrl.value.trim();
+            if (!mediaUrl) {
+              alert("Please provide the embed URL.");
+              return;
+            }
+            hasMedia = true;
+          }
+
+          /* ---- Build FormData ---- */
+          const formData = new FormData();
+          formData.append("title", title);
+          formData.append("referenceNo", reference);
+          formData.append("abstract", abstract);
+          formData.append("categoryId", categoryMap[categoryName] || "");
+          formData.append("documentType", type);
+          formData.append("criticality", criticality);
+          formData.append("accessLevel", access);
+          formData.append("author", author);
+          formData.append("keywords", keywords);
+          formData.append("language", "English");
+          formData.append("version", "1.0");
+          formData.append("authorId", user.id || "");
+          formData.append("status", "Published");
+          formData.append("publishedAt", publishedAt);
+
+          // New fields
+          formData.append("knowledgeType", knowledgeType);
+          formData.append("mediaType", mediaType);
+          if (mediaUrl) formData.append("mediaUrl", mediaUrl);
+          if (embedId) formData.append("embedId", embedId);
+          if (thumbnailUrl) formData.append("thumbnailUrl", thumbnailUrl);
+          if (duration) formData.append("duration", duration);
+          if (interviewee) formData.append("interviewee", interviewee);
+          if (source) formData.append("source", source);
+
+          // File (Document media only)
+          if (
+            mediaType === "Document" &&
+            fFile &&
+            fFile.files &&
+            fFile.files.length
+          ) {
+            formData.append("file", fFile.files[0]);
+          }
+
+          /* ---- Send ---- */
+          fSubmitBtn.disabled = true;
+          const originalText = fSubmitBtn.textContent;
+          fSubmitBtn.textContent = isEditMode ? "Updating…" : "Submitting…";
+
+          try {
+            const url = isEditMode
+              ? API_BASE + "/api/documents/" + editId
+              : API_BASE + "/api/documents";
+            const method = isEditMode ? "PUT" : "POST";
+
+            const res = await fetch(url, { method, body: formData });
+
+            let result = {};
+            try {
+              result = await res.json();
+            } catch (_) {
+              result = {};
+            }
+
+            if (
+              res.ok &&
+              (result.success === true || result.success === undefined)
+            ) {
+              alert(
+                isEditMode
+                  ? "Knowledge asset updated successfully."
+                  : "Knowledge asset submitted successfully.",
+              );
+              window.location.href = "Knowledge Repository.html";
+            } else {
+              alert(
+                result.message || "Save failed. Server returned " + res.status,
+              );
+            }
+          } catch (err) {
+            console.error(err);
+            alert(
+              "Cannot connect to the API. Is the server running on port 3000?",
+            );
+          } finally {
+            fSubmitBtn.disabled = false;
+            fSubmitBtn.textContent = originalText;
+          }
+        });
+
+        /* ---------- Init ---------- */
+        updateTypeFields();
+        loadForEdit();
+      });
+    </script>
+  </body>
+</html>
